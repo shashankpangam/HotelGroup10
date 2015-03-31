@@ -8,20 +8,16 @@ package Entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TblRoom.findByNoofbeds", query = "SELECT t FROM TblRoom t WHERE t.noofbeds = :noofbeds"),
     @NamedQuery(name = "TblRoom.findByConnecting", query = "SELECT t FROM TblRoom t WHERE t.connecting = :connecting"),
     @NamedQuery(name = "TblRoom.findBySmoking", query = "SELECT t FROM TblRoom t WHERE t.smoking = :smoking"),
-    @NamedQuery(name = "TblRoom.findByPrice", query = "SELECT t FROM TblRoom t WHERE t.price = :price")})
+    @NamedQuery(name = "TblRoom.findByPrice", query = "SELECT t FROM TblRoom t WHERE t.price = :price"),
+    @NamedQuery(name = "TblRoom.findByStatus", query = "SELECT t FROM TblRoom t WHERE t.status = :status")})
 public class TblRoom implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -83,8 +80,11 @@ public class TblRoom implements Serializable {
     @NotNull
     @Column(name = "PRICE")
     private double price;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomnumber")
-    private Collection<TblBooking> tblBookingCollection;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "STATUS")
+    private String status;
 
     public TblRoom() {
     }
@@ -93,7 +93,7 @@ public class TblRoom implements Serializable {
         this.roomnumber = roomnumber;
     }
 
-    public TblRoom(BigDecimal roomnumber, BigInteger floor, BigInteger roomsize, String roomview, String bedtype, BigInteger noofbeds, BigInteger connecting, BigInteger smoking, double price) {
+    public TblRoom(BigDecimal roomnumber, BigInteger floor, BigInteger roomsize, String roomview, String bedtype, BigInteger noofbeds, BigInteger connecting, BigInteger smoking, double price, String status) {
         this.roomnumber = roomnumber;
         this.floor = floor;
         this.roomsize = roomsize;
@@ -103,6 +103,7 @@ public class TblRoom implements Serializable {
         this.connecting = connecting;
         this.smoking = smoking;
         this.price = price;
+        this.status = status;
     }
 
     public BigDecimal getRoomnumber() {
@@ -177,13 +178,12 @@ public class TblRoom implements Serializable {
         this.price = price;
     }
 
-    @XmlTransient
-    public Collection<TblBooking> getTblBookingCollection() {
-        return tblBookingCollection;
+    public String getStatus() {
+        return status;
     }
 
-    public void setTblBookingCollection(Collection<TblBooking> tblBookingCollection) {
-        this.tblBookingCollection = tblBookingCollection;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
