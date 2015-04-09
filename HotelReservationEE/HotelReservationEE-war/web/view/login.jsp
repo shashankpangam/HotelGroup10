@@ -37,10 +37,16 @@
   <ul>
     <li><a href="#tabs-1">Not a Member?</a></li>
     <li><a href="#tabs-2">User</a></li>
-    <li><a href="#tabs-3">Admin</a></li>
   </ul>
   <div id="tabs-1">
       <form id="register">
+          <label>Title* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <select>
+              <option value="mr">Mr.</option>
+              <option value="mrs">Mrs.</option>
+              <option value="miss">Miss</option>
+              
+          </select><br/><br/>
           <label>Firstname* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="fname"/><br/><br/>
           <label>Lastname* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="lname"/><br/><br/>
           <label>Date of Birth* :&nbsp;</label><input type="date" name="dob"/><br/><br/>
@@ -59,17 +65,12 @@
       <form id="login">
           <label>Email* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="email"/><br/><br/>
           <label>Password* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="password" name="password"/><br/><br/><br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="userlogin" value="Login"/><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="Login"/><br/>
       </form>
   </div>
-  <div id="tabs-3">
-      <form id="admin">
-          <label>Email* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="email"/><br/><br/>
-          <label>Password* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="password" name="password"/><br/><br/><br/>
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="submit" name="adminlogin" value="Login"/><br/>
-      </form>
-   
+
   </div>
+           
 </div>
             
             

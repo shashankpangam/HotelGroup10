@@ -22,11 +22,11 @@
           <div class="inner">
             <ul class="nav">
               <li><a href="index.jsp">Home</a></li>
-              <li><a href="services.jsp">Services</a></li>
-              <li><a href="gallery.jsp">Gallery</a></li>
-              <li><a href="restaurant.jsp">Restaurant</a></li>
-              <li><a href="booking.jsp">Booking</a></li>
-              <li><a href="login.jsp">Login</a></li>             
+              <li><a href="view/rooms.jsp">Rooms</a></li>
+              <li><a href="view/gallery.jsp">Gallery</a></li>
+              <li><a href="view/services.jsp">Services</a></li>
+              <li><a href="view/booking.jsp">Booking</a></li>
+              <li><a href="view/login.jsp">Login</a></li>             
             </ul>
           </div>
         </div>
