@@ -34,8 +34,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblCreditcard.findByCardtype", query = "SELECT t FROM TblCreditcard t WHERE t.cardtype = :cardtype"),
     @NamedQuery(name = "TblCreditcard.findByCardnumber", query = "SELECT t FROM TblCreditcard t WHERE t.cardnumber = :cardnumber"),
     @NamedQuery(name = "TblCreditcard.findByExpmonth", query = "SELECT t FROM TblCreditcard t WHERE t.expmonth = :expmonth"),
-    @NamedQuery(name = "TblCreditcard.findByExpyear", query = "SELECT t FROM TblCreditcard t WHERE t.expyear = :expyear")})
+    @NamedQuery(name = "TblCreditcard.findByExpyear", query = "SELECT t FROM TblCreditcard t WHERE t.expyear = :expyear"),
+    @NamedQuery(name = "TblCreditcard.findByCustomerID", query = "SELECT t FROM TblCreditcard t WHERE t.customerid = :customerid")})
 public class TblCreditcard implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -152,5 +154,5 @@ public class TblCreditcard implements Serializable {
     public String toString() {
         return "Entities.TblCreditcard[ creditcardid=" + creditcardid + " ]";
     }
-    
+
 }
