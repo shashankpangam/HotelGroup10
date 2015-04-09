@@ -39,6 +39,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblRoom.findByPrice", query = "SELECT t FROM TblRoom t WHERE t.price = :price"),
     @NamedQuery(name = "TblRoom.findByStatus", query = "SELECT t FROM TblRoom t WHERE t.status = :status")})
 public class TblRoom implements Serializable {
+    @Column(name = "CAPACITY")
+    private BigInteger capacity;
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -209,6 +211,14 @@ public class TblRoom implements Serializable {
     @Override
     public String toString() {
         return "Entities.TblRoom[ roomnumber=" + roomnumber + " ]";
+    }
+
+    public BigInteger getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(BigInteger capacity) {
+        this.capacity = capacity;
     }
     
 }
