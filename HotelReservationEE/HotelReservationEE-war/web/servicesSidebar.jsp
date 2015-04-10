@@ -13,10 +13,10 @@
             <div class="txt1">
               <p>In addition to housing we also offer</p>
               <ul class="img-list">
-                <li> <img alt="" src="../images/2page-img7.jpg" /> Premium food (either at our restaraunt or delivered to your room) </li>
-                <li> <img alt="" src="../images/2page-img8.jpg" /> Drinks and bevarages in your rooms </li>
-                <li> <img alt="" src="../images/2page-img9.jpg" /> Daily cleaning (included into your package) </li>
-                <li> <img alt="" src="../images/2page-img10.jpg" /> Free access to our gym and swimming pool </li>
+                <li> <img alt="" src="images/2page-img7.jpg" /> Premium food (either at our restaraunt or delivered to your room) </li>
+                <li> <img alt="" src="images/2page-img8.jpg" /> Drinks and bevarages in your rooms </li>
+                <li> <img alt="" src="images/2page-img9.jpg" /> Daily cleaning (included into your package) </li>
+                <li> <img alt="" src="images/2page-img10.jpg" /> Free access to our gym and swimming pool </li>
               </ul>
             </div>
           </div>

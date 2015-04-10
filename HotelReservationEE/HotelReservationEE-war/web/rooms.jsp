@@ -12,9 +12,9 @@
 <head>
 <title>Paradise Hotel</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="../stylesheet/style.css" rel="stylesheet" type="text/css" />
-<link href="../stylesheet/layout.css" rel="stylesheet" type="text/css" />
-<script src="../scripts/maxheight.js" type="text/javascript"></script>
+<link href="stylesheet/style.css" rel="stylesheet" type="text/css" />
+<link href="stylesheet/layout.css" rel="stylesheet" type="text/css" />
+<script src="scripts/maxheight.js" type="text/javascript"></script>
 </head>
 <body id="page2" onload="new ElementMaxHeight();">
     <div id="main">
@@ -31,10 +31,10 @@
            <div class="indent">
           <h2>We offer several kinds of rooms views</h2>
           <div class="container">
-              <form action="../ViewDetails">
+              <form action="ViewDetails">
               <div class="col-1">
                   <h4>City View</h4><br/>
-              <img alt="" src="../images/city.jpeg" width="180" height="150"/>
+              <img alt="" src="images/city.jpeg" width="180" height="150"/>
               <!--<dl class="list1">
                 <dt>City View</dt>
                 <dd>Omnis iste natus error sit volupta- tem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi.</dd>
@@ -49,7 +49,7 @@
               </div>
                   <div class="col-2">
                        <h4>Ocean View</h4><br/>
-                      <img alt="" src="../images/ocean.jpg" width="180" height="150"/>
+                      <img alt="" src="images/ocean.jpg" width="180" height="150"/>
               <!--<dl class="list1">
                 <dt>Ocean View</dt>
                 <dd>Omnis iste natus error sit volupta- tem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi.</dd>
@@ -64,7 +64,7 @@
                   </div>
             <div class="col-3"> 
                  <h4>Mountain View</h4><br/>
-                <img alt="" src="../images/mountain.jpg" width="180" height="150"/>
+                <img alt="" src="images/mountain.jpg" width="180" height="150"/>
              <!-- <dl class="list1">
                 <dt>Mountain View</dt>
                 <dd>Omnis iste natus error sit volupta- tem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi.</dd>

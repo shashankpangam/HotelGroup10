@@ -9,9 +9,9 @@
 <head>
 <title>Paradise Hotel</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="../stylesheet/style.css" rel="stylesheet" type="text/css" />
-<link href="../stylesheet/layout.css" rel="stylesheet" type="text/css" />
-<script src="../scripts/maxheight.js" type="text/javascript"></script>
+<link href="stylesheet/style.css" rel="stylesheet" type="text/css" />
+<link href="stylesheet/layout.css" rel="stylesheet" type="text/css" />
+<script src="scripts/maxheight.js" type="text/javascript"></script>
 </head>
 <body id="page4" onload="new ElementMaxHeight();">
     <div id="main">
@@ -26,7 +26,7 @@
       <div class="content">
         <div class="indent">
           <h2>Today’s featured menu item</h2>
-          <img class="img-indent png alt" alt="" src="../images/4page-img1.png" />
+          <img class="img-indent png alt" alt="" src="images/4page-img1.png" />
           <div class="extra-wrap">
             <h5>Foie gras!</h5>
             <ul class="list2">

@@ -10,9 +10,9 @@
 <head>
 <title>Paradise Hotel</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="../stylesheet/style.css" rel="stylesheet" type="text/css" />
-<link href="../stylesheet/layout.css" rel="stylesheet" type="text/css" />
-<script src="../scripts/maxheight.js" type="text/javascript"></script>
+<link href="stylesheet/style.css" rel="stylesheet" type="text/css" />
+<link href="stylesheet/layout.css" rel="stylesheet" type="text/css" />
+<script src="scripts/maxheight.js" type="text/javascript"></script>
 </head>
 <body id="page5" onload="new ElementMaxHeight();">
     <div id="main">
@@ -27,7 +27,7 @@
  <div class="content">
         <div class="indent">
           <h2>Our location</h2>
-          <img class="img-indent png" alt="" src="../images/5page-img1.png" />
+          <img class="img-indent png" alt="" src="images/5page-img1.png" />
           <div class="extra-wrap">
             <p class="alt-top">Our hotel is located in the most spectacular part of Prague - surrounded by boutiques, restaurants and luxurious shops.</p>
             <p>Please feel free to come visit us at the following adress:</p>
