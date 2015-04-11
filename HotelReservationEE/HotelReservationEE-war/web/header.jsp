@@ -11,8 +11,8 @@
         <div class="logo">
           <h1><a href="#">Paradise</a></h1>
           <em>Hotel</em> <strong>True Luxury</strong></div>
-        <div class="phones">Contact Us:<br />
-          1-800-542-64-48 </div>
+          <div class="phones"><h4>Welcome &nbsp;<a href="login.jsp">Log in</a> </h4>
+       </div>
       </div>
     </div>
     <div class="row-2">
