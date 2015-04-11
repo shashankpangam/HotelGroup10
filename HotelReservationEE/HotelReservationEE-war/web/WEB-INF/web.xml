@@ -8,6 +8,22 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet.jsp</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ViewDetails</servlet-name>
+        <servlet-class>servlet.ViewDetails</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewDetails</servlet-name>
+        <url-pattern>/ViewDetails</url-pattern>
+    </servlet-mapping>
+      <servlet>
+        <servlet-name>RoomBooking</servlet-name>
+        <servlet-class>servlet.RoomBooking</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RoomBooking</servlet-name>
+        <url-pattern>/RoomBooking</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
