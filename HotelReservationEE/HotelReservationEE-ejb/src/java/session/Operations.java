@@ -5,6 +5,7 @@
  */
 package session;
 
+import Entities.TblContact;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -13,6 +14,7 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import Entities.TblRoom;
+import java.util.ArrayList;
 
 /**
  *
@@ -50,4 +52,21 @@ public class Operations implements OperationsRemote, OperationsLocal {
         query = em.createNamedQuery("TblRoom.findByRoomview").setParameter("roomview", view);
         return query.getResultList();
     }  
+   
+    
+    @Override
+    public String contact(String name, String email, String phone, String message) {
+           TblContact contact = new TblContact();
+           try {
+            contact.setName(name);
+            contact.setEmail(email);
+            contact.setPhone(phone);
+            contact.setMessage(message);
+            em.persist(contact);
+            return null;
+        } catch (Exception ex) {
+            return ex.toString();
+        }
+    
+}
 }

@@ -24,4 +24,6 @@ public interface OperationsRemote {
 
     List getRoomByView(String view);
     
+    String contact(String name, String email, String phone, String message) ;
+    
 }
