@@ -8,6 +8,7 @@ package session;
 import Entities.TblCreditcard;
 import Entities.TblCustomer;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -21,10 +22,16 @@ public interface UserOperationsLocal {
 
     Object getCustomerDetails(BigDecimal CustomerID);
 
-    boolean insertNewUser(Object user);
+    int insertNewUser(Object user);
 
     boolean insertCreditCard(Object creditCard, Object customer);
 
     Object getCreditCardDetails(BigDecimal customerID);
+
+    boolean insertNewLogin(Object user);
+
+    Object getCustomerById(int id);
+
+    List getBookingsByCustomerId(int customerid);
     
 }

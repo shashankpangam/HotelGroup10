@@ -6,6 +6,7 @@
 package session;
 
 import java.math.BigDecimal;
+import java.util.List;
 import javax.ejb.Remote;
 
 /**
@@ -19,10 +20,16 @@ public interface UserOperationsRemote {
 
     Object getCustomerDetails(BigDecimal CustomerID);
 
-    boolean insertNewUser(Object user);
+    int insertNewUser(Object user);
 
     boolean insertCreditCard(Object creditCard, Object customer);
 
     Object getCreditCardDetails(BigDecimal customerID);
+
+    boolean insertNewLogin(Object user);
+
+    Object getCustomerById(int id);
+
+    List getBookingsByCustomerId(int customerid);
     
 }

@@ -5,11 +5,13 @@
  */
 package session;
 
+import Entities.TblBooking;
 import Entities.TblCreditcard;
 import Entities.TblCustomer;
 import Entities.TblLogin;
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.List;
 import javax.ejb.EJBException;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionManagement;
@@ -57,9 +59,61 @@ public class UserOperations implements UserOperationsRemote, UserOperationsLocal
     }
 
     @Override
-    public boolean insertNewUser(Object user) {
+    public int insertNewUser(Object user) {
         try {
             TblCustomer customer = (TblCustomer) user;
+            em.persist(customer);
+            em.flush();
+            em.refresh(user);
+            return ((TblCustomer) user).getCustomerid();
+        } catch (EJBException e) {
+            @SuppressWarnings("ThrowableResultIgnored")
+            Exception cause = e.getCausedByException();
+            if (cause instanceof ConstraintViolationException) {
+                @SuppressWarnings("ThrowableResultIgnored")
+                ConstraintViolationException cve = (ConstraintViolationException) e.getCausedByException();
+                for (Iterator<ConstraintViolation<?>> it = cve.getConstraintViolations().iterator(); it.hasNext();) {
+                    ConstraintViolation<? extends Object> v = it.next();
+                    System.err.println(v);
+                    System.err.println("==>>" + v.getMessage());
+                }
+            }
+            return 0;
+        }
+    }
+
+    @Override
+    public boolean insertCreditCard(Object creditCard, Object customer) {
+        try {
+            TblCreditcard cc = (TblCreditcard) creditCard;
+            TblCustomer cust = (TblCustomer) customer;
+            cc.setCustomerid(cust);
+            em.persist(cc);
+            em.flush();
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+
+    }
+
+    @Override
+    public Object getCreditCardDetails(BigDecimal customerID) {
+        try {
+            query = em.createNamedQuery("TblCreditcard.findByCustomerID").setParameter("customerid", customerID);
+            TblCreditcard cc = (TblCreditcard) query.getSingleResult();
+            return cc;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean insertNewLogin(Object user) {
+        try {
+            TblLogin customer = (TblLogin) user;
             em.persist(customer);
             return true;
         } catch (EJBException e) {
@@ -79,30 +133,48 @@ public class UserOperations implements UserOperationsRemote, UserOperationsLocal
     }
 
     @Override
-    public boolean insertCreditCard(Object creditCard, Object customer) {
+    public Object getCustomerById(int id) {
         try {
-            TblCreditcard cc = (TblCreditcard) creditCard;
-            TblCustomer cust = (TblCustomer) customer;
-            cc.setCustomerid(cust);
-            em.persist(cc);
-            return true;
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            query = em.createNamedQuery("TblCustomer.findByCustomerid").setParameter("customerid", id);
+            TblCustomer customer = (TblCustomer) query.getSingleResult();
+            return customer;
+        } catch (EJBException e) {
+            @SuppressWarnings("ThrowableResultIgnored")
+            Exception cause = e.getCausedByException();
+            if (cause instanceof ConstraintViolationException) {
+                @SuppressWarnings("ThrowableResultIgnored")
+                ConstraintViolationException cve = (ConstraintViolationException) e.getCausedByException();
+                for (Iterator<ConstraintViolation<?>> it = cve.getConstraintViolations().iterator(); it.hasNext();) {
+                    ConstraintViolation<? extends Object> v = it.next();
+                    System.err.println(v);
+                    System.err.println("==>>" + v.getMessage());
+                }
+            }
             return false;
         }
 
     }
 
     @Override
-    public Object getCreditCardDetails(BigDecimal customerID) {
+    public List getBookingsByCustomerId(int customerid) {
         try {
-            query = em.createNamedQuery("TblCreditcard.findByCustomerID").setParameter("customerid", customerID);
-            TblCreditcard cc = (TblCreditcard) query.getSingleResult();
-            return cc;
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            query = em.createNamedQuery("TblBooking.findByCustomerId").setParameter("customerid", customerid); 
+            return query.getResultList();
+        } catch (EJBException e) {
+            @SuppressWarnings("ThrowableResultIgnored")
+            Exception cause = e.getCausedByException();
+            if (cause instanceof ConstraintViolationException) {
+                @SuppressWarnings("ThrowableResultIgnored")
+                ConstraintViolationException cve = (ConstraintViolationException) e.getCausedByException();
+                for (Iterator<ConstraintViolation<?>> it = cve.getConstraintViolations().iterator(); it.hasNext();) {
+                    ConstraintViolation<? extends Object> v = it.next();
+                    System.err.println(v);
+                    System.err.println("==>>" + v.getMessage());
+                }
+            }
             return null;
         }
+
     }
 
 }
