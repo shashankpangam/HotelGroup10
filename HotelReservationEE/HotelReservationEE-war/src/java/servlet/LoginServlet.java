@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import Entities.TblBooking;
 import Entities.TblCustomer;
 import Entities.TblLogin;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
@@ -113,10 +115,7 @@ public class LoginServlet extends HttpServlet {
 
                 boolean flag = true;
 
-                if (fname.equals("") || lname.equals("") || dob.equals("") || address1.equals("")
-                        || address2.equals("") || city.equals("") || zip.equals("") || province.equals("") || email.equals("") || password.equals("")
-                        || passwordrepeat.equals("")) {
-
+                if (fname.equals("") || lname.equals("") || dob.equals("") || address1.equals("") || city.equals("") || zip.equals("") || province.equals("") || email.equals("") || password.equals("") || passwordrepeat.equals("")) {
                     if (fname == null || fname.equals("")) {
                         out.println("<p style='color:red'>Please enter your First Name <p/>");
                         flag = false;
@@ -129,7 +128,7 @@ public class LoginServlet extends HttpServlet {
                         out.println("<p style='color:red'>Please enter your Date Of Birth <p/>");
                         flag = false;
                     }
-                    if (address1 == null || address1.equals("") || address2 == null || address2.equals("")) {
+                    if (address1 == null || address1.equals("")) {
                         out.println("<p style='color:red'>Please enter your address <p/>");
                         flag = false;
                     }
@@ -164,7 +163,7 @@ public class LoginServlet extends HttpServlet {
                 } else if ((zip.length() != 6)) {
                     out.println("<p style='color:red'>Zip should be 6 in length<p/>");
                     flag = false;
-                } else if ((password.length() <= 7) ) {
+                } else if ((password.length() <= 7)) {
                     out.println("<p style='color:red'>Password should be at least 8 Characters in length<p/>");
                     flag = false;
                 } else if (!emailregex(email)) {
@@ -196,10 +195,23 @@ public class LoginServlet extends HttpServlet {
                         uor = (UserOperationsRemote) ctx.lookup(UserOperationsRemote.class.getName());
                         session.setAttribute("uor", uor);
                     }
-                    boolean pass = uor.insertNewUser(newCustomer);
-                    if (pass) {
-                        out.println("User Added Successfully!");
-                        forwardRequest(request, response, nextURL);
+                    int pass = uor.insertNewUser(newCustomer);
+                    if (pass != 0) {
+                        TblLogin newLogin = new TblLogin();
+                        TblCustomer addedUser = (TblCustomer) uor.getCustomerById(pass);
+                        newLogin.setCustomerid(addedUser);
+                        newLogin.setEmail(email);
+                        newLogin.setLogintype("USER");
+                        newLogin.setPassword(password);
+                        Date d = new Date();
+                        newLogin.setLastlogin(d);
+                        boolean flag1 = uor.insertNewLogin(newLogin);
+                        if (flag) {
+                            out.println("User Added Successfully!");
+                            session.setAttribute("sessionFname", addedUser.getFname());
+                            session.setAttribute("sessionCustId", addedUser.getCustomerid());
+                            forwardRequest(request, response, nextURL);
+                        }
                     } else {
                         out.println("Error Occured, Please try again later");
                         forwardRequest(request, response, returnURL);
@@ -228,13 +240,31 @@ public class LoginServlet extends HttpServlet {
                     }
                     TblLogin user = (TblLogin) uor.login(email, password);
                     if (user != null) {
-                        request.setAttribute("loggedInUser", user);
+                        session.setAttribute("LoggedIn", user);
+                        TblCustomer customerDetails = user.getCustomerid();
+                        session.setAttribute("customerDetails", customerDetails);
                         forwardRequest(request, response, nextURL);
                         out.println("Login Successful!");
                     } else {
-                        forwardRequest(request, response, returnURL);
+                        includeRequest(request, response, returnURL);
                         out.println("Error Occured, Please try again later");
                     }
+                }
+            } else if (action.equalsIgnoreCase("myAccount")) {
+                TblCustomer customer = (TblCustomer) session.getAttribute("customerDetails");
+                if (customer == null) {
+                    out.println("Please Login first");
+                    includeRequest(request, response, returnURL);
+                } else {
+                    UserOperationsRemote uor = (UserOperationsRemote) session.getAttribute("uor");
+                    if (uor == null) {
+                        Context ctx = new InitialContext();
+                        uor = (UserOperationsRemote) ctx.lookup(UserOperationsRemote.class.getName());
+                        session.setAttribute("uor", uor);
+                    }
+                    List<TblBooking> myBookings = (List<TblBooking>) uor.getBookingsByCustomerId(customer.getCustomerid());
+                    session.setAttribute("myBookings", myBookings);
+                    forwardRequest(request, response, nextURL);
                 }
             }
         } catch (Exception ex) {
