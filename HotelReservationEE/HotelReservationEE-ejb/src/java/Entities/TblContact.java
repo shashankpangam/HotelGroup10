@@ -6,7 +6,6 @@
 package Entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author meenakshimehta
+ * @author ShashankPangam
  */
 @Entity
 @Table(name = "TBL_CONTACT")
@@ -37,51 +35,49 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblContact.findByMessage", query = "SELECT t FROM TblContact t WHERE t.message = :message")})
 public class TblContact implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @SequenceGenerator(name = "CONTACT_SEQ", sequenceName = "CONTACT_SEQ",allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CONTACT_SEQ")
     @Column(name = "CONTACTID")
-    private BigDecimal contactid;
+    private Integer contactid;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 100)
     @Column(name = "NAME")
     private String name;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 50)
     @Column(name = "EMAIL")
     private String email;
-    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Size(max = 10)
     @Column(name = "PHONE")
-    private String phone;
-    @Size(max = 200)
+    private Integer phone;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1000)
     @Column(name = "MESSAGE")
     private String message;
 
     public TblContact() {
     }
 
-    public TblContact(BigDecimal contactid) {
+    public TblContact(Integer contactid) {
         this.contactid = contactid;
     }
 
-    public TblContact(BigDecimal contactid, String name, String email) {
+    public TblContact(Integer contactid, String name, String email, String message) {
         this.contactid = contactid;
         this.name = name;
         this.email = email;
+        this.message = message;
     }
 
-    public BigDecimal getContactid() {
+    public Integer getContactid() {
         return contactid;
     }
 
-    public void setContactid(BigDecimal contactid) {
+    public void setContactid(Integer contactid) {
         this.contactid = contactid;
     }
 
@@ -101,11 +97,11 @@ public class TblContact implements Serializable {
         this.email = email;
     }
 
-    public String getPhone() {
+    public Integer getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(Integer phone) {
         this.phone = phone;
     }
 

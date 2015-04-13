@@ -9,11 +9,15 @@ import Entities.TblCreditcard;
 import Entities.TblCustomer;
 import Entities.TblLogin;
 import java.math.BigDecimal;
+import java.util.Iterator;
+import javax.ejb.EJBException;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 /**
  *
@@ -37,7 +41,6 @@ public class UserOperations implements UserOperationsRemote, UserOperationsLocal
             ex.printStackTrace();
             return false;
         }
-
     }
 
     @Override
@@ -59,8 +62,18 @@ public class UserOperations implements UserOperationsRemote, UserOperationsLocal
             TblCustomer customer = (TblCustomer) user;
             em.persist(customer);
             return true;
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (EJBException e) {
+            @SuppressWarnings("ThrowableResultIgnored")
+            Exception cause = e.getCausedByException();
+            if (cause instanceof ConstraintViolationException) {
+                @SuppressWarnings("ThrowableResultIgnored")
+                ConstraintViolationException cve = (ConstraintViolationException) e.getCausedByException();
+                for (Iterator<ConstraintViolation<?>> it = cve.getConstraintViolations().iterator(); it.hasNext();) {
+                    ConstraintViolation<? extends Object> v = it.next();
+                    System.err.println(v);
+                    System.err.println("==>>" + v.getMessage());
+                }
+            }
             return false;
         }
     }
@@ -82,12 +95,11 @@ public class UserOperations implements UserOperationsRemote, UserOperationsLocal
 
     @Override
     public Object getCreditCardDetails(BigDecimal customerID) {
-        try{
-            query = em.createNamedQuery("TblCreditcard.findByCustomerID").setParameter("customerid",customerID);
+        try {
+            query = em.createNamedQuery("TblCreditcard.findByCustomerID").setParameter("customerid", customerID);
             TblCreditcard cc = (TblCreditcard) query.getSingleResult();
             return cc;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }

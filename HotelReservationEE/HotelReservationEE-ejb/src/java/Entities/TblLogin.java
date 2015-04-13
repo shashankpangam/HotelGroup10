@@ -6,11 +6,12 @@
 package Entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -36,16 +37,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblLogin.findByEmail", query = "SELECT t FROM TblLogin t WHERE t.email = :email"),
     @NamedQuery(name = "TblLogin.findByPassword", query = "SELECT t FROM TblLogin t WHERE t.password = :password"),
     @NamedQuery(name = "TblLogin.findByLogintype", query = "SELECT t FROM TblLogin t WHERE t.logintype = :logintype"),
-    @NamedQuery(name = "TblLogin.findbyLogin", query = "SELECT t from TblLogin t WHERE t.email= :email and t.password = :password"),
     @NamedQuery(name = "TblLogin.findByLastlogin", query = "SELECT t FROM TblLogin t WHERE t.lastlogin = :lastlogin")})
 public class TblLogin implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "LOGINID")
-    private BigDecimal loginid;
+    private Integer loginid;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -74,11 +73,11 @@ public class TblLogin implements Serializable {
     public TblLogin() {
     }
 
-    public TblLogin(BigDecimal loginid) {
+    public TblLogin(Integer loginid) {
         this.loginid = loginid;
     }
 
-    public TblLogin(BigDecimal loginid, String email, String password, String logintype, Date lastlogin) {
+    public TblLogin(Integer loginid, String email, String password, String logintype, Date lastlogin) {
         this.loginid = loginid;
         this.email = email;
         this.password = password;
@@ -86,11 +85,11 @@ public class TblLogin implements Serializable {
         this.lastlogin = lastlogin;
     }
 
-    public BigDecimal getLoginid() {
+    public Integer getLoginid() {
         return loginid;
     }
 
-    public void setLoginid(BigDecimal loginid) {
+    public void setLoginid(Integer loginid) {
         this.loginid = loginid;
     }
 

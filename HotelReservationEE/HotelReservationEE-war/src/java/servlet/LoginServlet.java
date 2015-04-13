@@ -154,14 +154,18 @@ public class LoginServlet extends HttpServlet {
                         out.println("<p style='color:red'>Please enter your Retyped Password<p/>");
                         flag = false;
                     }
+                    if (password != passwordrepeat) {
+                        out.println("<p style='color:red'>Passwords dont match.<p/>");
+                        flag = false;
+                    }
                 } else if (!alpha(fname) || (!alpha(lname))) {
                     out.println("<p style='color:red'>Enter only alphabets for Name <p />");
                     flag = false;
                 } else if ((zip.length() != 6)) {
                     out.println("<p style='color:red'>Zip should be 6 in length<p/>");
                     flag = false;
-                } else if ((password.length() != 6) || (passwordrepeat.length() != 6)) {
-                    out.println("<p style='color:red'>Password should be 6 in length<p/>");
+                } else if ((password.length() <= 7) ) {
+                    out.println("<p style='color:red'>Password should be at least 8 Characters in length<p/>");
                     flag = false;
                 } else if (!emailregex(email)) {
                     out.println("<p style='color:red'>Invalid Email Address<p/>");
@@ -231,7 +235,6 @@ public class LoginServlet extends HttpServlet {
                         forwardRequest(request, response, returnURL);
                         out.println("Error Occured, Please try again later");
                     }
-
                 }
             }
         } catch (Exception ex) {

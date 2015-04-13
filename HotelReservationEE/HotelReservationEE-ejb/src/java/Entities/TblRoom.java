@@ -6,8 +6,6 @@
 package Entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,32 +28,32 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblRoom.findAll", query = "SELECT t FROM TblRoom t"),
     @NamedQuery(name = "TblRoom.findByRoomnumber", query = "SELECT t FROM TblRoom t WHERE t.roomnumber = :roomnumber"),
     @NamedQuery(name = "TblRoom.findByFloor", query = "SELECT t FROM TblRoom t WHERE t.floor = :floor"),
+    @NamedQuery(name = "TblRoom.findByCapacity", query = "SELECT t FROM TblRoom t WHERE t.capacity = :capacity"),
     @NamedQuery(name = "TblRoom.findByRoomsize", query = "SELECT t FROM TblRoom t WHERE t.roomsize = :roomsize"),
     @NamedQuery(name = "TblRoom.findByRoomview", query = "SELECT t FROM TblRoom t WHERE t.roomview = :roomview"),
     @NamedQuery(name = "TblRoom.findByBedtype", query = "SELECT t FROM TblRoom t WHERE t.bedtype = :bedtype"),
     @NamedQuery(name = "TblRoom.findByNoofbeds", query = "SELECT t FROM TblRoom t WHERE t.noofbeds = :noofbeds"),
-    @NamedQuery(name = "TblRoom.findByConnecting", query = "SELECT t FROM TblRoom t WHERE t.connecting = :connecting"),
     @NamedQuery(name = "TblRoom.findBySmoking", query = "SELECT t FROM TblRoom t WHERE t.smoking = :smoking"),
-    @NamedQuery(name = "TblRoom.findByPrice", query = "SELECT t FROM TblRoom t WHERE t.price = :price"),
-    @NamedQuery(name = "TblRoom.findByStatus", query = "SELECT t FROM TblRoom t WHERE t.status = :status")})
+    @NamedQuery(name = "TblRoom.findByPrice", query = "SELECT t FROM TblRoom t WHERE t.price = :price")})
 public class TblRoom implements Serializable {
-    @Column(name = "CAPACITY")
-    private BigInteger capacity;
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "ROOMNUMBER")
-    private BigDecimal roomnumber;
+    private Integer roomnumber;
     @Basic(optional = false)
     @NotNull
     @Column(name = "FLOOR")
-    private BigInteger floor;
+    private short floor;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "CAPACITY")
+    private short capacity;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ROOMSIZE")
-    private BigInteger roomsize;
+    private int roomsize;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -69,66 +67,64 @@ public class TblRoom implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "NOOFBEDS")
-    private BigInteger noofbeds;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "CONNECTING")
-    private BigInteger connecting;
+    private short noofbeds;
     @Basic(optional = false)
     @NotNull
     @Column(name = "SMOKING")
-    private BigInteger smoking;
+    private boolean smoking;
     @Basic(optional = false)
     @NotNull
     @Column(name = "PRICE")
-    private double price;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "STATUS")
-    private String status;
+    private float price;
 
     public TblRoom() {
     }
 
-    public TblRoom(BigDecimal roomnumber) {
+    public TblRoom(Integer roomnumber) {
         this.roomnumber = roomnumber;
     }
 
-    public TblRoom(BigDecimal roomnumber, BigInteger floor, BigInteger roomsize, String roomview, String bedtype, BigInteger noofbeds, BigInteger connecting, BigInteger smoking, double price, String status) {
+    public TblRoom(Integer roomnumber, short floor, short capacity, int roomsize, String roomview, String bedtype, short noofbeds, boolean smoking, float price) {
         this.roomnumber = roomnumber;
         this.floor = floor;
+        this.capacity = capacity;
         this.roomsize = roomsize;
         this.roomview = roomview;
         this.bedtype = bedtype;
         this.noofbeds = noofbeds;
-        this.connecting = connecting;
         this.smoking = smoking;
         this.price = price;
-        this.status = status;
     }
 
-    public BigDecimal getRoomnumber() {
+    public Integer getRoomnumber() {
         return roomnumber;
     }
 
-    public void setRoomnumber(BigDecimal roomnumber) {
+    public void setRoomnumber(Integer roomnumber) {
         this.roomnumber = roomnumber;
     }
 
-    public BigInteger getFloor() {
+    public short getFloor() {
         return floor;
     }
 
-    public void setFloor(BigInteger floor) {
+    public void setFloor(short floor) {
         this.floor = floor;
     }
 
-    public BigInteger getRoomsize() {
+    public short getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(short capacity) {
+        this.capacity = capacity;
+    }
+
+    public int getRoomsize() {
         return roomsize;
     }
 
-    public void setRoomsize(BigInteger roomsize) {
+    public void setRoomsize(int roomsize) {
         this.roomsize = roomsize;
     }
 
@@ -148,44 +144,28 @@ public class TblRoom implements Serializable {
         this.bedtype = bedtype;
     }
 
-    public BigInteger getNoofbeds() {
+    public short getNoofbeds() {
         return noofbeds;
     }
 
-    public void setNoofbeds(BigInteger noofbeds) {
+    public void setNoofbeds(short noofbeds) {
         this.noofbeds = noofbeds;
     }
 
-    public BigInteger getConnecting() {
-        return connecting;
-    }
-
-    public void setConnecting(BigInteger connecting) {
-        this.connecting = connecting;
-    }
-
-    public BigInteger getSmoking() {
+    public boolean getSmoking() {
         return smoking;
     }
 
-    public void setSmoking(BigInteger smoking) {
+    public void setSmoking(boolean smoking) {
         this.smoking = smoking;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     @Override
@@ -211,14 +191,6 @@ public class TblRoom implements Serializable {
     @Override
     public String toString() {
         return "Entities.TblRoom[ roomnumber=" + roomnumber + " ]";
-    }
-
-    public BigInteger getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(BigInteger capacity) {
-        this.capacity = capacity;
     }
     
 }

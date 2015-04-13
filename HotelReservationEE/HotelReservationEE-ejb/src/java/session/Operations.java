@@ -55,7 +55,7 @@ public class Operations implements OperationsRemote, OperationsLocal {
    
     
     @Override
-    public String contact(String name, String email, String phone, String message) {
+    public String contact(String name, String email, Integer phone, String message) {
            TblContact contact = new TblContact();
            try {
             contact.setName(name);

@@ -6,11 +6,11 @@
 package Entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -34,17 +34,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblCreditcard.findByCardtype", query = "SELECT t FROM TblCreditcard t WHERE t.cardtype = :cardtype"),
     @NamedQuery(name = "TblCreditcard.findByCardnumber", query = "SELECT t FROM TblCreditcard t WHERE t.cardnumber = :cardnumber"),
     @NamedQuery(name = "TblCreditcard.findByExpmonth", query = "SELECT t FROM TblCreditcard t WHERE t.expmonth = :expmonth"),
-    @NamedQuery(name = "TblCreditcard.findByExpyear", query = "SELECT t FROM TblCreditcard t WHERE t.expyear = :expyear"),
-    @NamedQuery(name = "TblCreditcard.findByCustomerID", query = "SELECT t FROM TblCreditcard t WHERE t.customerid = :customerid")})
+    @NamedQuery(name = "TblCreditcard.findByExpyear", query = "SELECT t FROM TblCreditcard t WHERE t.expyear = :expyear")})
 public class TblCreditcard implements Serializable {
-
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "CREDITCARDID")
-    private BigDecimal creditcardid;
+    private Integer creditcardid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -58,11 +55,11 @@ public class TblCreditcard implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "EXPMONTH")
-    private BigInteger expmonth;
+    private short expmonth;
     @Basic(optional = false)
     @NotNull
     @Column(name = "EXPYEAR")
-    private BigInteger expyear;
+    private short expyear;
     @JoinColumn(name = "CUSTOMERID", referencedColumnName = "CUSTOMERID")
     @ManyToOne(optional = false)
     private TblCustomer customerid;
@@ -70,11 +67,11 @@ public class TblCreditcard implements Serializable {
     public TblCreditcard() {
     }
 
-    public TblCreditcard(BigDecimal creditcardid) {
+    public TblCreditcard(Integer creditcardid) {
         this.creditcardid = creditcardid;
     }
 
-    public TblCreditcard(BigDecimal creditcardid, String cardtype, String cardnumber, BigInteger expmonth, BigInteger expyear) {
+    public TblCreditcard(Integer creditcardid, String cardtype, String cardnumber, short expmonth, short expyear) {
         this.creditcardid = creditcardid;
         this.cardtype = cardtype;
         this.cardnumber = cardnumber;
@@ -82,11 +79,11 @@ public class TblCreditcard implements Serializable {
         this.expyear = expyear;
     }
 
-    public BigDecimal getCreditcardid() {
+    public Integer getCreditcardid() {
         return creditcardid;
     }
 
-    public void setCreditcardid(BigDecimal creditcardid) {
+    public void setCreditcardid(Integer creditcardid) {
         this.creditcardid = creditcardid;
     }
 
@@ -106,19 +103,19 @@ public class TblCreditcard implements Serializable {
         this.cardnumber = cardnumber;
     }
 
-    public BigInteger getExpmonth() {
+    public short getExpmonth() {
         return expmonth;
     }
 
-    public void setExpmonth(BigInteger expmonth) {
+    public void setExpmonth(short expmonth) {
         this.expmonth = expmonth;
     }
 
-    public BigInteger getExpyear() {
+    public short getExpyear() {
         return expyear;
     }
 
-    public void setExpyear(BigInteger expyear) {
+    public void setExpyear(short expyear) {
         this.expyear = expyear;
     }
 
@@ -154,5 +151,5 @@ public class TblCreditcard implements Serializable {
     public String toString() {
         return "Entities.TblCreditcard[ creditcardid=" + creditcardid + " ]";
     }
-
+    
 }

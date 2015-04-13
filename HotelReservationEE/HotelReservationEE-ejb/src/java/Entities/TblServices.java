@@ -6,18 +6,17 @@
 package Entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -30,113 +29,60 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "TblServices.findAll", query = "SELECT t FROM TblServices t"),
     @NamedQuery(name = "TblServices.findByServiceid", query = "SELECT t FROM TblServices t WHERE t.serviceid = :serviceid"),
-    @NamedQuery(name = "TblServices.findByWifi", query = "SELECT t FROM TblServices t WHERE t.wifi = :wifi"),
-    @NamedQuery(name = "TblServices.findByAircondition", query = "SELECT t FROM TblServices t WHERE t.aircondition = :aircondition"),
-    @NamedQuery(name = "TblServices.findByConnectingroom", query = "SELECT t FROM TblServices t WHERE t.connectingroom = :connectingroom"),
-    @NamedQuery(name = "TblServices.findByCrib", query = "SELECT t FROM TblServices t WHERE t.crib = :crib"),
-    @NamedQuery(name = "TblServices.findByBreakfast", query = "SELECT t FROM TblServices t WHERE t.breakfast = :breakfast")})
+    @NamedQuery(name = "TblServices.findByName", query = "SELECT t FROM TblServices t WHERE t.name = :name"),
+    @NamedQuery(name = "TblServices.findByPrice", query = "SELECT t FROM TblServices t WHERE t.price = :price")})
 public class TblServices implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "SERVICEID")
-    private BigDecimal serviceid;
+    private Integer serviceid;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "WIFI")
-    private BigInteger wifi;
+    @Size(min = 1, max = 50)
+    @Column(name = "NAME")
+    private String name;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "AIRCONDITION")
-    private BigInteger aircondition;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "CONNECTINGROOM")
-    private BigInteger connectingroom;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "CRIB")
-    private BigInteger crib;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "BREAKFAST")
-    private BigInteger breakfast;
-    @JoinColumn(name = "BOOKINGID", referencedColumnName = "BOOKINGID")
-    @ManyToOne(optional = false)
-    private TblBooking bookingid;
+    @Column(name = "PRICE")
+    private float price;
 
     public TblServices() {
     }
 
-    public TblServices(BigDecimal serviceid) {
+    public TblServices(Integer serviceid) {
         this.serviceid = serviceid;
     }
 
-    public TblServices(BigDecimal serviceid, BigInteger wifi, BigInteger aircondition, BigInteger connectingroom, BigInteger crib, BigInteger breakfast) {
+    public TblServices(Integer serviceid, String name, float price) {
         this.serviceid = serviceid;
-        this.wifi = wifi;
-        this.aircondition = aircondition;
-        this.connectingroom = connectingroom;
-        this.crib = crib;
-        this.breakfast = breakfast;
+        this.name = name;
+        this.price = price;
     }
 
-    public BigDecimal getServiceid() {
+    public Integer getServiceid() {
         return serviceid;
     }
 
-    public void setServiceid(BigDecimal serviceid) {
+    public void setServiceid(Integer serviceid) {
         this.serviceid = serviceid;
     }
 
-    public BigInteger getWifi() {
-        return wifi;
+    public String getName() {
+        return name;
     }
 
-    public void setWifi(BigInteger wifi) {
-        this.wifi = wifi;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public BigInteger getAircondition() {
-        return aircondition;
+    public float getPrice() {
+        return price;
     }
 
-    public void setAircondition(BigInteger aircondition) {
-        this.aircondition = aircondition;
-    }
-
-    public BigInteger getConnectingroom() {
-        return connectingroom;
-    }
-
-    public void setConnectingroom(BigInteger connectingroom) {
-        this.connectingroom = connectingroom;
-    }
-
-    public BigInteger getCrib() {
-        return crib;
-    }
-
-    public void setCrib(BigInteger crib) {
-        this.crib = crib;
-    }
-
-    public BigInteger getBreakfast() {
-        return breakfast;
-    }
-
-    public void setBreakfast(BigInteger breakfast) {
-        this.breakfast = breakfast;
-    }
-
-    public TblBooking getBookingid() {
-        return bookingid;
-    }
-
-    public void setBookingid(TblBooking bookingid) {
-        this.bookingid = bookingid;
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     @Override

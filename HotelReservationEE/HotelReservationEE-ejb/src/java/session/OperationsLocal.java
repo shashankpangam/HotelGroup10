@@ -24,6 +24,6 @@ public interface OperationsLocal {
 
     List getRoomByView(String view);
     
-    String contact(String name, String email, String phone, String message) ;
+    String contact(String name, String email, Integer phone, String message) ;
     
 }

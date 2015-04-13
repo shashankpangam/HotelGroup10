@@ -6,13 +6,14 @@
 package Entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -48,15 +49,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TblCustomer.findByZip", query = "SELECT t FROM TblCustomer t WHERE t.zip = :zip")})
 public class TblCustomer implements Serializable {
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "CUSTOMERID")
-    private BigDecimal customerid;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    private Integer customerid;
+    @Size(max = 20)
     @Column(name = "TITLE")
     private String title;
     @Basic(optional = false)
@@ -72,7 +70,7 @@ public class TblCustomer implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "DOB")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date dob;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
@@ -118,13 +116,12 @@ public class TblCustomer implements Serializable {
     public TblCustomer() {
     }
 
-    public TblCustomer(BigDecimal customerid) {
+    public TblCustomer(Integer customerid) {
         this.customerid = customerid;
     }
 
-    public TblCustomer(BigDecimal customerid, String title, String fname, String lname, Date dob, String email, String addressline1, String city, String province, String country, String zip) {
+    public TblCustomer(Integer customerid, String fname, String lname, Date dob, String email, String addressline1, String city, String province, String country, String zip) {
         this.customerid = customerid;
-        this.title = title;
         this.fname = fname;
         this.lname = lname;
         this.dob = dob;
@@ -136,11 +133,11 @@ public class TblCustomer implements Serializable {
         this.zip = zip;
     }
 
-    public BigDecimal getCustomerid() {
+    public Integer getCustomerid() {
         return customerid;
     }
 
-    public void setCustomerid(BigDecimal customerid) {
+    public void setCustomerid(Integer customerid) {
         this.customerid = customerid;
     }
 

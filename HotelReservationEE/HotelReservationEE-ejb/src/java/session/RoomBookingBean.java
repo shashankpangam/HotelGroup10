@@ -46,8 +46,20 @@ public class RoomBookingBean implements RoomBookingBeanRemote, RoomBookingBeanLo
     }
 
     @Override
-    public void addService(String service) {
-        servicesList.add(service);
+    public boolean addService(String service) {
+        return servicesList.add(service);
     }
 
+    @Override
+    public boolean removeRoom(Object obj) {
+        TblRoom room = (TblRoom) obj;
+        return shoppingCart.remove(room);
+    }
+
+    @Override
+    public boolean removeService(String obj) {
+        return servicesList.add(obj);
+    }
+    
+    
 }

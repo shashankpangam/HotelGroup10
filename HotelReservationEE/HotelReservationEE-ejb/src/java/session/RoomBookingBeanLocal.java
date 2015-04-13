@@ -21,5 +21,9 @@ public interface RoomBookingBeanLocal {
 
     List getContents();
 
-    void addService(String service);
+    boolean addService(String service);
+
+    boolean removeRoom(Object obj);
+
+    boolean removeService(String obj);
 }
