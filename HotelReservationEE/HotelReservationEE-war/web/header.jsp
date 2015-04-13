@@ -11,7 +11,7 @@ r-2015, 11:53:09 PM
         <div class="logo">
           <h1><a href="#">Paradise</a></h1>
           <em>Hotel</em> <strong>True Luxury</strong></div>
-          <div class="phones"><h4>Welcome &nbsp;<a href="login.jsp">Log in</a> </h4>
+          <div class="phones"><h4>Welcome &nbsp;<a href="login.jsp">Log in</a> | <a href="myaccount.jsp">MyAccount</a></h4>
        </div>
       </div>
     </div>
@@ -25,8 +25,8 @@ r-2015, 11:53:09 PM
               <li><a href="rooms.jsp">Rooms</a></li>
               <li><a href="gallery.jsp">Gallery</a></li>
               <li><a href="services.jsp">Services</a></li>
-              <li><a href="booking.jsp">Booking</a></li>
-              <li><a href="login.jsp">Login</a></li>             
+              <li><a href="reservation.jsp">Reservation</a></li>
+              <li><a href="contact.jsp">Contact Us</a></li>             
             </ul>
           </div>
         </div>
