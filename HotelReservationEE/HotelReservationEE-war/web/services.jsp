@@ -4,6 +4,11 @@
     Author     : meenakshimehta
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="session.OperationsRemote"%>
+<%@page import="javax.naming.Context"%>
+<%@page import="Entities.TblServices"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -16,33 +21,84 @@
 <body id="page4" onload="new ElementMaxHeight();">
     <div id="main">
   <%@include file="header.jsp" %>
-
+  
 <div id="content">
     <div class="wrapper">
       <div class="aside maxheight">
-<%@include file="menuSidebar.jsp" %>
+             <%
+                            String isAvailability = (String) session.getAttribute("isAvailability");
+                            if (isAvailability=="true") {
+                        %>
+                        <%@include file="menuSidebar.jsp" %>
+                        <%             } else {
+                        %>
+                        <%@include file="bookingSidebar.jsp" %>
+                        <%
+                            }
+                        %>      
       </div>
-
+  <%  
+            Context ctx = new InitialContext();
+           OperationsRemote roomSession = (OperationsRemote) ctx.lookup(OperationsRemote.class.getName());
+           List<TblServices>  service = (List<TblServices>) roomSession.getAllServices();             
+                %>  
       <div class="content">
-        <div class="indent">
-          <h2>Today’s featured menu item</h2>
-          <img class="img-indent png alt" alt="" src="images/4page-img1.png" />
+      <form action="RoomBooking.jsp?action=Proceed" method="post">
+          <div class="indent">
+            
           <div class="extra-wrap">
-            <h5>Foie gras!</h5>
+              <img class="img-indent png alt" alt="" src="images/wifi.jpg" height="80" width="90"/>
+            <h5>Free Standard WI-FI</h5>
+            <div class="right" style="float:right; font-size: 50px;">
+                 <input type="hidden" name="serviceid" value="<%=service.get(0).getServiceid()%>"/>
+                <input type="checkbox" name="wifi" value="<%=service.get(0).getServiceid()%>"/></div>
             <ul class="list2">
-              <li>Nice and tasty!</li>
-              <li>Made from French ingredients!</li>
-              <li>Cooked by Italian chef!</li>
-              <li>Awarded by Czech assosiation of chef!</li>
-              <li>Proved to be good for your health!</li>
+                <li>Whether you need to check emails, surf the web or chat, we know how important<br/> mobile freedom is for you.So, we offer FREE OF CHARGE internet access in entire hotel</li>
             </ul>
-            <div class="aligncenter"><strong class="txt2">AS LOW AS €19!</strong></div>
+           
+          </div>
+             <div class="extra-wrap">
+              <img class="img-indent png alt" alt="" src="images/aircondtion.jpg" height="80" width="90"/>
+            <h5>Air Conditioning</h5>
+            <div class="right" style="float:right">
+                <input type="hidden" name="serviceid" value="<%=service.get(1).getServiceid()%>"/>
+                <input type="checkbox" name="aircondition" value="<%=service.get(1).getServiceid()%>"/></div>
+            <ul class="list2">
+                <li> From the lobby to restaurants, kitchen and bar, and from conference and meeting<br/> rooms to the spa, We provide ventilation and air conditioning</li>
+            </ul>
+           
+          </div>
+          </div>
+            <div class="extra-wrap">
+              <img class="img-indent png alt" alt="" src="images/bfast.jpg" height="80" width="90"/>
+            <h5>Breakfast</h5>
+            <div class="right" style="float:right"> 
+                <input type="hidden" name="serviceid" value="<%=service.get(3).getServiceid()%>"/>
+                <input type="checkbox" name="breakfast" value="<%=service.get(3).getServiceid()%>"/></div>
+            <ul class="list2">
+              <li>Healthy vitamin packed Breakfast buffet in the Bow Valley Grill for Two Adults.<br/>Purchase and save 25%</li>
+            </ul>
+           
+          </div>
+            <div class="extra-wrap">
+              <img class="img-indent png alt" alt="" src="images/crib.jpg" height="80" width="90"/>
+            <h5>Crib</h5>
+               <div class="right" style="float:right">
+                   <input type="hidden" name="serviceid" value="<%=service.get(4).getServiceid()%>"/>
+                   <input type="checkbox" name="crib" value="<%=service.get(4).getServiceid()%>"/></div>
+            <ul class="list2">
+                <li>For parents traveling with little ones, Paradise has got you covered. We provide<br/> special services for the Kids here</li>
+            </ul>
+         
           </div>
         </div>
+          <input type="submit" id="proceed" value="Proceed"/>
+  </form>
       </div>
       <div class="clear"></div>
 </div></div>
  
       <%@include file="footer.jsp" %>
          </div>
+</body>
 </html>
