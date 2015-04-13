@@ -6,6 +6,7 @@
 package session;
 
 import Entities.TblRoom;
+import Entities.TblServices;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Local;
@@ -21,9 +22,13 @@ public interface RoomBookingBeanLocal {
 
     List getContents();
 
-    boolean addService(String service);
+     boolean addService(Object obj);
 
-    boolean removeRoom(Object obj);
+   Object[] getSelectedServices();
+   
+  ArrayList getServices() ;
 
-    boolean removeService(String obj);
+  boolean removeService(Object obj);
+
+   boolean removeRoom(Object obj);
 }

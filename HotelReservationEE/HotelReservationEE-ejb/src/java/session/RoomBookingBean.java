@@ -6,6 +6,7 @@
 package session;
 
 import Entities.TblRoom;
+import Entities.TblServices;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateful;
@@ -26,7 +27,7 @@ public class RoomBookingBean implements RoomBookingBeanRemote, RoomBookingBeanLo
     private EntityManager em;
     Query query;
     private ArrayList<TblRoom> shoppingCart;
-    private ArrayList servicesList;
+    private ArrayList<Object> servicesList;
 
     public RoomBookingBean() {
         shoppingCart = new ArrayList<TblRoom>();
@@ -35,9 +36,20 @@ public class RoomBookingBean implements RoomBookingBeanRemote, RoomBookingBeanLo
 
     @Override
     public List getContents() {
-        Query shop = em.createNamedQuery("TblRoom.findByRoomnumber", TblRoom.class);
-        return shop.getResultList();
+        Query service = em.createNamedQuery("TblServices.findByName", TblRoom.class);
+        return service.getResultList();
     }
+    
+    public Object[] getSelectedServices() {
+        Object[] services = this.servicesList.toArray();
+        return services;
+    }
+    
+    @Override
+    public ArrayList getServices() {
+        return this.servicesList;
+    }
+    
 
     @Override
     public boolean addRoom(Object obj) {
@@ -46,20 +58,26 @@ public class RoomBookingBean implements RoomBookingBeanRemote, RoomBookingBeanLo
     }
 
     @Override
-    public boolean addService(String service) {
+    public boolean addService(Object obj) {
+        TblServices service=(TblServices) obj;
+        if(servicesList.contains(service)){
+            return false;
+        }
+        else
         return servicesList.add(service);
     }
-
+    
     @Override
-    public boolean removeRoom(Object obj) {
-        TblRoom room = (TblRoom) obj;
-        return shoppingCart.remove(room);
+    public boolean removeService(Object obj){
+        TblServices service=(TblServices) obj;
+        return this.servicesList.remove(service);
+    }
+    @Override
+     public boolean removeRoom(Object obj){
+        TblRoom room=(TblRoom) obj;
+        return this.servicesList.remove(room);
     }
 
-    @Override
-    public boolean removeService(String obj) {
-        return servicesList.add(obj);
-    }
     
     
 }

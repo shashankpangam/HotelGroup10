@@ -21,9 +21,13 @@ public interface RoomBookingBeanRemote {
 
     List getContents();
 
-    boolean addService(String service);
+     boolean addService(Object obj);
+     
+    Object[] getSelectedServices();
+    
+    ArrayList getServices() ;
+    
+    boolean removeService(Object obj);
 
-    boolean removeRoom(Object obj);
-
-    boolean removeService(String obj);
+   boolean removeRoom(Object obj);
 }
