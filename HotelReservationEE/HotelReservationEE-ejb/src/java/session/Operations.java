@@ -42,7 +42,7 @@ public class Operations implements OperationsRemote, OperationsLocal {
     }
 
     @Override
-    public Object getRoomByID(BigDecimal id) {
+    public Object getRoomByID(int id) {
         query = em.createNamedQuery("TblRoom.findByRoomnumber").setParameter("roomnumber", id);
         TblRoom room = (TblRoom) query.getSingleResult();
         return room;

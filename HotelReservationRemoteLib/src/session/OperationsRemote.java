@@ -20,7 +20,7 @@ public interface OperationsRemote {
 
     List getRoomsByStatus(String status);
 
-    Object getRoomByID(BigDecimal id);
+    Object getRoomByID(int id);
 
     List getRoomByView(String view);
 

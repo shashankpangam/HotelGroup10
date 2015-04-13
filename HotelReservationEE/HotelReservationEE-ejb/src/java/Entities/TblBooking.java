@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblBooking.findByDatefrom", query = "SELECT t FROM TblBooking t WHERE t.datefrom = :datefrom"),
     @NamedQuery(name = "TblBooking.findByDateto", query = "SELECT t FROM TblBooking t WHERE t.dateto = :dateto"),
     @NamedQuery(name = "TblBooking.findByStatus", query = "SELECT t FROM TblBooking t WHERE t.status = :status"),
-    @NamedQuery(name = "TblBooking.findByTotal", query = "SELECT t FROM TblBooking t WHERE t.total = :total")})
+    @NamedQuery(name = "TblBooking.findByTotal", query = "SELECT t FROM TblBooking t WHERE t.total = :total"),
+    @NamedQuery(name = "TblBooking.findByCustomerId", query = "SELECT t FROM TblBooking t WHERE t.customerid = :customerid")})
 public class TblBooking implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

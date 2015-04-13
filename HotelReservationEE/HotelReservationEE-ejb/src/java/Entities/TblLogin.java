@@ -37,7 +37,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblLogin.findByEmail", query = "SELECT t FROM TblLogin t WHERE t.email = :email"),
     @NamedQuery(name = "TblLogin.findByPassword", query = "SELECT t FROM TblLogin t WHERE t.password = :password"),
     @NamedQuery(name = "TblLogin.findByLogintype", query = "SELECT t FROM TblLogin t WHERE t.logintype = :logintype"),
-    @NamedQuery(name = "TblLogin.findByLastlogin", query = "SELECT t FROM TblLogin t WHERE t.lastlogin = :lastlogin")})
+    @NamedQuery(name = "TblLogin.findByLastlogin", query = "SELECT t FROM TblLogin t WHERE t.lastlogin = :lastlogin"),
+    @NamedQuery(name = "TblLogin.findbyLogin", query = "SELECT t FROM TblLogin t WHERE t.email = :email and t.password = :password")
+})
 public class TblLogin implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
