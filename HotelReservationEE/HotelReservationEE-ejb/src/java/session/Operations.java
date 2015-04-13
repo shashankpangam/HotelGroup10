@@ -14,6 +14,7 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import Entities.TblRoom;
+import Entities.TblServices;
 import java.util.ArrayList;
 
 /**
@@ -46,16 +47,21 @@ public class Operations implements OperationsRemote, OperationsLocal {
         TblRoom room = (TblRoom) query.getSingleResult();
         return room;
     }
-
+    @Override
+      public Object getServiceByID(Integer id) {
+        query = em.createNamedQuery("TblServices.findByServiceid").setParameter("serviceid", id);
+        TblServices service = (TblServices) query.getSingleResult();
+        return service;
+    }
+      
     @Override
     public List getRoomByView(String view) {
         query = em.createNamedQuery("TblRoom.findByRoomview").setParameter("roomview", view);
         return query.getResultList();
     }  
-   
     
     @Override
-    public String contact(String name, String email, String phone, String message) {
+    public String contact(String name, String email,String phone, String message) {
            TblContact contact = new TblContact();
            try {
             contact.setName(name);
@@ -69,4 +75,10 @@ public class Operations implements OperationsRemote, OperationsLocal {
         }
     
 }
+
+    @Override
+    public List getAllServices() {
+        query = em.createNamedQuery("TblServices.findAll");
+        return query.getResultList();
+    }
 }
