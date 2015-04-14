@@ -52,7 +52,7 @@ public class TblContact implements Serializable {
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "PHONE")
-    private Integer phone;
+    private String phone;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1000)
@@ -97,11 +97,11 @@ public class TblContact implements Serializable {
         this.email = email;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
