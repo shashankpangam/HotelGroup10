@@ -29,7 +29,7 @@ public class Operations implements OperationsRemote, OperationsLocal {
     @javax.persistence.PersistenceContext(unitName = "HotelReservationEE-ejbPU")
     private EntityManager em;
     Query query;
-    
+
     @Override
     public List getAllRooms() {
         query = em.createNamedQuery("TblRoom.findAll");
@@ -48,23 +48,23 @@ public class Operations implements OperationsRemote, OperationsLocal {
         TblRoom room = (TblRoom) query.getSingleResult();
         return room;
     }
+
     @Override
-      public Object getServiceByID(Integer id) {
+    public Object getServiceByID(Integer id) {
         query = em.createNamedQuery("TblServices.findByServiceid").setParameter("serviceid", id);
         TblServices service = (TblServices) query.getSingleResult();
         return service;
     }
-      
+
     @Override
     public List getRoomByView(String view) {
         query = em.createNamedQuery("TblRoom.findByRoomview").setParameter("roomview", view);
         return query.getResultList();
-    }  
-    
+    }
 
-    public String contact(String name, String email,String phone, String message) {
-           TblContact contact = new TblContact();
-           try {
+    public String contact(String name, String email, String phone, String message) {
+        TblContact contact = new TblContact();
+        try {
             contact.setName(name);
             contact.setEmail(email);
             contact.setPhone(phone);
@@ -74,41 +74,41 @@ public class Operations implements OperationsRemote, OperationsLocal {
         } catch (Exception ex) {
             return ex.toString();
         }
-    
-}
+
+    }
 
     @Override
     public List getAllServices() {
         query = em.createNamedQuery("TblServices.findAll");
         return query.getResultList();
     }
-    
+
     @Override
     public void addRoom(Object room) {
-         em.persist((TblRoom)room);
-    }
-   
-    @Override
-    public void editRoom(Object room) {
-     em.merge((TblRoom)room);
+        em.persist((TblRoom) room);
     }
 
-     @Override
+    @Override
+    public void editRoom(Object room) {
+        em.merge((TblRoom) room);
+    }
+
+    @Override
     public void deleteRoom(int roomNumber) {
         TblRoom room = em.find(TblRoom.class, roomNumber);
         em.remove(room);
     }
-    
+
     @Override
-     public  List generateReport(Date startDate, Date endDate){
+    public List generateReport(Date startDate, Date endDate) {
         query = em.createNamedQuery("TblBooking.findByDateRange").setParameter("startDate", startDate).setParameter("endDate", endDate);
-         return query.getResultList();
-     }
-     
-     @Override
-     public  List generateStatusReport(short floor, String status){
+        return query.getResultList();
+    }
+
+    @Override
+    public List generateStatusReport(short floor, String status) {
 //        query = em.createNamedQuery("TblBooking.findByStatusFloor").setParameter("floor",floor).setParameter("status",status);
-         query = em.createNamedQuery("TblBooking.findByStatus").setParameter("status", status);
-         return query.getResultList();
-     }
+        query = em.createNamedQuery("TblBooking.findByStatus").setParameter("status", status);
+        return query.getResultList();
+    }
 }
