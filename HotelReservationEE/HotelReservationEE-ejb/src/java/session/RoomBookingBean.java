@@ -27,23 +27,18 @@ public class RoomBookingBean implements RoomBookingBeanRemote, RoomBookingBeanLo
     private EntityManager em;
     Query query;
     private ArrayList<TblRoom> shoppingCart;
-    private ArrayList<Object> servicesList;
+    private ArrayList<TblServices> servicesList;
 
     public RoomBookingBean() {
         shoppingCart = new ArrayList<TblRoom>();
-        servicesList = new ArrayList();
+        servicesList = new ArrayList<>();
     }
 
     @Override
-    public List getContents() {
-        Query service = em.createNamedQuery("TblServices.findByName", TblRoom.class);
-        return service.getResultList();
+    public ArrayList getContents() {
+        return this.shoppingCart;
     }
     
-    public Object[] getSelectedServices() {
-        Object[] services = this.servicesList.toArray();
-        return services;
-    }
     
     @Override
     public ArrayList getServices() {
@@ -75,8 +70,14 @@ public class RoomBookingBean implements RoomBookingBeanRemote, RoomBookingBeanLo
     @Override
      public boolean removeRoom(Object obj){
         TblRoom room=(TblRoom) obj;
-        return this.servicesList.remove(room);
+        return this.shoppingCart.remove(room);
     }
+      @Override
+    public void clearCart(){
+        shoppingCart.clear();
+        servicesList.clear();
+    }
+     
 
     
     

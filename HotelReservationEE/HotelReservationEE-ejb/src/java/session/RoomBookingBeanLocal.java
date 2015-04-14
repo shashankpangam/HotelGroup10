@@ -20,15 +20,14 @@ public interface RoomBookingBeanLocal {
 
     boolean addRoom(Object room);
 
-    List getContents();
+    ArrayList getContents();
 
      boolean addService(Object obj);
-
-   Object[] getSelectedServices();
    
   ArrayList getServices() ;
 
   boolean removeService(Object obj);
 
    boolean removeRoom(Object obj);
+   void clearCart();
 }

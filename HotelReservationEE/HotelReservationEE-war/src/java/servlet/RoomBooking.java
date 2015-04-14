@@ -4,7 +4,6 @@ import Entities.TblServices;
 import Entities.TblRoom;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,27 +33,23 @@ public class RoomBooking extends HttpServlet {
             throws ServletException, IOException, NamingException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
-            String action = request.getParameter("action");
-            String wifi = request.getParameter("wifi");
-            String aircondition = request.getParameter("aircondition");
-            String connectingroom = request.getParameter("connectingroom");
-            String breakfast = request.getParameter("breakfast");
-            String crib = request.getParameter("crib");
-
-            Context ctx = new InitialContext();
+            
+             Context ctx = new InitialContext();
             HttpSession session = request.getSession();
             OperationsRemote roomSession = (OperationsRemote) ctx.lookup(OperationsRemote.class.getName());
             ServletContext sc = getServletConfig().getServletContext();
-            
-            if (action.equals("Book Now")) {
-                int roomid = Integer.parseInt(request.getParameter("roomid"));
-                TblRoom room = (TblRoom) roomSession.getRoomByID(roomid);
-                mycart = (RoomBookingBeanRemote) session.getAttribute("mycart");
+             mycart = (RoomBookingBeanRemote) session.getAttribute("mycart");
                 if (mycart == null) {
                     mycart = (RoomBookingBeanRemote) ctx.lookup(RoomBookingBeanRemote.class.getName());
                     session.setAttribute("mycart", mycart);
                 }
+            String submit = request.getParameter("action");
+              switch (submit) {
+                case "Book Now":
+                   {
+                int roomid = Integer.parseInt(request.getParameter("roomid"));
+                TblRoom room = (TblRoom) roomSession.getRoomByID(roomid);
+               
                 boolean flag;
                 flag = mycart.addRoom(room);
                 if (flag) {
@@ -66,42 +61,45 @@ public class RoomBooking extends HttpServlet {
                 }
 
             }
-
-            if (action.equals("Proceed")) {
-                int id = Integer.parseInt(request.getParameter("serviceid"));
+                case "Add":
+                  {        
                 TblServices service;
-                mycart = (RoomBookingBeanRemote) session.getAttribute("mycart");
-                if (mycart == null) {
-                    RoomBookingBeanRemote mycart = (RoomBookingBeanRemote) ctx.lookup(RoomBookingBeanRemote.class.getName());
-                    session.setAttribute("mycart", mycart);
-                }
                 boolean flag = true;
-                if (wifi != null) {
-                    service = (TblServices) roomSession.getServiceByID(Integer.parseInt(wifi));
+                if (request.getParameter("wifi") != null) {
+                    service = (TblServices) roomSession.getServiceByID(Integer.parseInt(request.getParameter("wifi")));
                   
                    flag = mycart.addService(service);
-                } else if (aircondition != null) {
-                    service = (TblServices) roomSession.getServiceByID(Integer.parseInt(aircondition));
+                } else if (request.getParameter("aircondition") != null) {
+                    service = (TblServices) roomSession.getServiceByID(Integer.parseInt(request.getParameter("aircondition") ));
                     flag = mycart.addService(service);
-                } else if (breakfast != null) {
-                    service = (TblServices) roomSession.getServiceByID(Integer.parseInt(breakfast));
+                } else if (request.getParameter("breakfast") != null) {
+                    service = (TblServices) roomSession.getServiceByID(Integer.parseInt(request.getParameter("breakfast")));
                     flag = mycart.addService(service);
-                } else if (crib != null) {
-                    service = (TblServices) roomSession.getServiceByID(Integer.parseInt(crib));
+                } else if (request.getParameter("crib") != null) {
+                    service = (TblServices) roomSession.getServiceByID(Integer.parseInt(request.getParameter("crib")));
                     flag = mycart.addService(service);
                 }
                 if (flag) {
                     RequestDispatcher rd = sc.getRequestDispatcher("/services.jsp");
                     ArrayList<TblServices> services = (ArrayList<TblServices>) mycart.getServices();
                     session.setAttribute("service", services);
-                    rd.include(request, response);
-                } else {
-                    RequestDispatcher rd = sc.getRequestDispatcher("/services.jsp");
-                     rd.include(request, response);
+                    rd.forward(request, response);
                 }
-            }
-
-            if (action.equals("Check Availability")) {
+                 RequestDispatcher rd = sc.getRequestDispatcher("/services.jsp");
+                     rd.include(request, response);
+                     break;
+            }    
+                case "Proceed":
+                {
+               
+                    RequestDispatcher rd = sc.getRequestDispatcher("/reservation.jsp");
+                    session.setAttribute("mycart", mycart);
+                    rd.forward(request, response);
+                    break;
+                  
+              }
+                case "Check Availability":
+             {
                 String checkin = request.getParameter("checkIndate");
                 String checkout = request.getParameter("checkOutdate");
                 String person = request.getParameter("person");
@@ -112,8 +110,48 @@ public class RoomBooking extends HttpServlet {
                 session.setAttribute("person", person);
                 session.setAttribute("isAvailability", isAvailability);
                 rd.forward(request, response);
+                break;
 
             }
+                case "Cancel Booking":
+                {
+                    mycart.clearCart();
+                    session.invalidate();
+                    RequestDispatcher rd = sc.getRequestDispatcher("/reservation.jsp");
+                    rd.forward(request, response);   
+                    break;
+                }
+                case "Delete Room":
+                {
+                    int roomid = Integer.parseInt(request.getParameter("roomid"));
+                    TblRoom room = (TblRoom) roomSession.getRoomByID(roomid);
+                    boolean flag;
+                    flag = mycart.removeRoom(room);
+                    if (flag) {
+                    RequestDispatcher rd = sc.getRequestDispatcher("/reservation.jsp");
+                    rd.include(request, response);
+                 
+                }
+                   break;
+                    
+                }
+                case "Delete Service":
+                {
+                    int serviceid = Integer.parseInt(request.getParameter("serviceid"));
+                    TblServices service = (TblServices) roomSession.getServiceByID(serviceid);
+                    boolean flag;
+                    flag = mycart.removeService(service);
+                    if (flag) {
+                    RequestDispatcher rd = sc.getRequestDispatcher("/reservation.jsp");
+                    rd.include(request, response);
+                  
+                    
+                }
+                      break;
+                }
+                
+                    
+              }
 
         }
     }

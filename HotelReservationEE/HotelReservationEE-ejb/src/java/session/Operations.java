@@ -60,8 +60,10 @@ public class Operations implements OperationsRemote, OperationsLocal {
         return query.getResultList();
     }  
     
+    
 
-    public String contact(String name, String email,int phone, String message) {
+    @Override
+    public String contact(String name, String email,String phone, String message) {
            TblContact contact = new TblContact();
            try {
             contact.setName(name);
