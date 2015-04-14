@@ -43,7 +43,7 @@
            List<TblServices>  service = (List<TblServices>) roomSession.getAllServices();             
                 %>  
       <div class="content">
-      <form action="RoomBooking.jsp?action=Proceed" method="post">
+      <form action="RoomBooking.jsp" method="post">
           <div class="indent">
             
           <div class="extra-wrap">
@@ -92,7 +92,8 @@
          
           </div>
         </div>
-          <input type="submit" id="proceed" value="Proceed"/>
+           <input type="submit" name="action" value="Add"/>
+          <input type="submit" name="action" value="Proceed"/>
   </form>
       </div>
       <div class="clear"></div>

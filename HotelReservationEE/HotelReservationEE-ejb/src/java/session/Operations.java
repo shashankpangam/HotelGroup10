@@ -60,11 +60,14 @@ public class Operations implements OperationsRemote, OperationsLocal {
     public List getRoomByView(String view) {
         query = em.createNamedQuery("TblRoom.findByRoomview").setParameter("roomview", view);
         return query.getResultList();
-    }
+    }  
+    
+    
 
-    public String contact(String name, String email, String phone, String message) {
-        TblContact contact = new TblContact();
-        try {
+    @Override
+    public String contact(String name, String email,String phone, String message) {
+           TblContact contact = new TblContact();
+           try {
             contact.setName(name);
             contact.setEmail(email);
             contact.setPhone(phone);

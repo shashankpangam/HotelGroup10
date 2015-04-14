@@ -89,12 +89,13 @@
                                                 total = total + x.getPrice();
 
                                                 out.println(x.getRoomnumber() + "</td><td>");
-                                                out.println("$" + x.getPrice());
+                                                out.println("$" + x.getPrice()+"</td><td>");
+                                                out.println("<input type='submit' name='action' value='Delete Room'/>");
                                             }
 
                                         %>
                                     </td>   
-                                    <td> <input type="submit" name="action" value="Delete Room"/></td>
+                                 
                                 </tr>
                             </table><br/><br/>
                             <h6> Services Selected:</h6>
@@ -112,14 +113,15 @@
                                                 out.println("<input type='hidden' name='serviceid' value='" + x.getServiceid() + "'/>");
                                                 total = total + x.getPrice();
                                                 out.println(x.getName().toLowerCase() + "</td><td>");
-                                                out.println("$" + x.getPrice());
+                                                out.println("$" + x.getPrice()+"</td><td>");
+                                                out.println("<input type='submit' name='action' value='Delete Service'/>");
                                             }
 
 
                                         %>
                                     </td>
 
-                                    <td>  <input type="submit" name="action" value="Delete Service"/></td>
+                                   
 
 
                                 </tr>
