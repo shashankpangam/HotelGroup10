@@ -5,7 +5,6 @@
  */
 package session;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Remote;
@@ -21,13 +20,13 @@ public interface RoomBookingBeanRemote {
 
     List getContents();
 
-     boolean addService(Object obj);
-     
-    Object[] getSelectedServices();
-    
-    ArrayList getServices() ;
-    
+    boolean addService(Object obj);
+
+    ArrayList getServices();
+
     boolean removeService(Object obj);
 
-   boolean removeRoom(Object obj);
+    boolean removeRoom(Object obj);
+
+    void clearCart();
 }

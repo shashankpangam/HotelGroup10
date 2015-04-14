@@ -27,29 +27,22 @@ public class RoomBookingBean implements RoomBookingBeanRemote, RoomBookingBeanLo
     private EntityManager em;
     Query query;
     private ArrayList<TblRoom> shoppingCart;
-    private ArrayList<Object> servicesList;
+    private ArrayList<TblServices> servicesList;
 
     public RoomBookingBean() {
         shoppingCart = new ArrayList<TblRoom>();
-        servicesList = new ArrayList();
+        servicesList = new ArrayList<>();
     }
 
     @Override
-    public List getContents() {
-        Query service = em.createNamedQuery("TblServices.findByName", TblRoom.class);
-        return service.getResultList();
+    public ArrayList getContents() {
+        return this.shoppingCart;
     }
-    
-    public Object[] getSelectedServices() {
-        Object[] services = this.servicesList.toArray();
-        return services;
-    }
-    
+
     @Override
     public ArrayList getServices() {
         return this.servicesList;
     }
-    
 
     @Override
     public boolean addRoom(Object obj) {
@@ -59,25 +52,30 @@ public class RoomBookingBean implements RoomBookingBeanRemote, RoomBookingBeanLo
 
     @Override
     public boolean addService(Object obj) {
-        TblServices service=(TblServices) obj;
-        if(servicesList.contains(service)){
+        TblServices service = (TblServices) obj;
+        if (servicesList.contains(service)) {
             return false;
+        } else {
+            return servicesList.add(service);
         }
-        else
-        return servicesList.add(service);
-    }
-    
-    @Override
-    public boolean removeService(Object obj){
-        TblServices service=(TblServices) obj;
-        return this.servicesList.remove(service);
-    }
-    @Override
-     public boolean removeRoom(Object obj){
-        TblRoom room=(TblRoom) obj;
-        return this.servicesList.remove(room);
     }
 
-    
-    
+    @Override
+    public boolean removeService(Object obj) {
+        TblServices service = (TblServices) obj;
+        return this.servicesList.remove(service);
+    }
+
+    @Override
+    public boolean removeRoom(Object obj) {
+        TblRoom room = (TblRoom) obj;
+        return this.shoppingCart.remove(room);
+    }
+
+    @Override
+    public void clearCart() {
+        shoppingCart.clear();
+        servicesList.clear();
+    }
+
 }
