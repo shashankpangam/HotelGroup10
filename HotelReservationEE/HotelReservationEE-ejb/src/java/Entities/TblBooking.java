@@ -43,6 +43,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblBooking.findByTotal", query = "SELECT t FROM TblBooking t WHERE t.total = :total"),
     @NamedQuery(name = "TblBooking.findByCustomerId", query = "SELECT t FROM TblBooking t WHERE t.customerid = :customerid")})
 public class TblBooking implements Serializable {
+    @Size(max = 1000)
+    @Column(name = "REQUEST")
+    private String request;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -196,6 +199,14 @@ public class TblBooking implements Serializable {
     @Override
     public String toString() {
         return "Entities.TblBooking[ bookingid=" + bookingid + " ]";
+    }
+
+    public String getRequest() {
+        return request;
+    }
+
+    public void setRequest(String request) {
+        this.request = request;
     }
     
 }
