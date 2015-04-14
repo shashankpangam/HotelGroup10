@@ -21,7 +21,7 @@ r-2015, 11:53:09 PM
                     out.println(customer.getFname());
                     %>
                     <input type="hidden" name="customerid" value="<%=customer.getCustomerid()%>"/>
-                    <a href="LoginServlet.jsp?action=Logout&nextURL=logout.jsp">Log Out</a> | <a href="LoginServlet.jsp?action=myAccount&nextURL=/myaccount.jsp">My Account</a><%
+                    <a href="LoginServlet.jsp?action=Logout&nextURL=/index.jsp">Log Out</a> | <a href="LoginServlet.jsp?action=myAccount&nextURL=/myaccount.jsp">My Account</a><%
                     } else {%>
                     <a href="login.jsp#tabs-1">Login</a> | <a href="login.jsp#tabs-2">Register</a><%
                         }

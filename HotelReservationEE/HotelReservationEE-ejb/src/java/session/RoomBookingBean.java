@@ -5,15 +5,22 @@
  */
 package session;
 
+import Entities.TblBooking;
+import Entities.TblCustomer;
+import Entities.TblLogin;
 import Entities.TblRoom;
 import Entities.TblServices;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import javax.ejb.EJBException;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 /**
  *
@@ -77,5 +84,29 @@ public class RoomBookingBean implements RoomBookingBeanRemote, RoomBookingBeanLo
         shoppingCart.clear();
         servicesList.clear();
     }
+
+    @Override
+    public boolean addNewBooking(Object obj) {
+        try {
+            TblBooking booking = (TblBooking) obj;
+            em.persist(booking);
+            return true;
+        } catch (EJBException e) {
+            @SuppressWarnings("ThrowableResultIgnored")
+            Exception cause = e.getCausedByException();
+            if (cause instanceof ConstraintViolationException) {
+                @SuppressWarnings("ThrowableResultIgnored")
+                ConstraintViolationException cve = (ConstraintViolationException) e.getCausedByException();
+                for (Iterator<ConstraintViolation<?>> it = cve.getConstraintViolations().iterator(); it.hasNext();) {
+                    ConstraintViolation<? extends Object> v = it.next();
+                    System.err.println(v);
+                    System.err.println("==>>" + v.getMessage());
+                }
+            }
+            return false;
+        }
+    }
+    
+    
 
 }

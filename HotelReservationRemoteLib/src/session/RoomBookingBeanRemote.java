@@ -29,4 +29,6 @@ public interface RoomBookingBeanRemote {
     boolean removeRoom(Object obj);
 
     void clearCart();
+
+    boolean addNewBooking(Object obj);
 }

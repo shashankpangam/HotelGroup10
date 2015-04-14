@@ -8,6 +8,7 @@ package servlet;
 import Entities.TblBooking;
 import Entities.TblCustomer;
 import Entities.TblLogin;
+import Entities.TblRoom;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import session.OperationsRemote;
 import session.UserOperationsRemote;
 
 /**
@@ -95,6 +97,20 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("myBookings", myBookings);
                     forwardRequest(request, response, nextURL);
                 }
+            } else if (action.equalsIgnoreCase("Logout")) {
+                session.setAttribute("LoggedIn", null);
+                session.setAttribute("customerDetails", null);
+                session.invalidate();
+                ServletConfig cfg = getServletConfig();
+                ServletContext sc = cfg.getServletContext();
+                forwardRequest(request, response, nextURL);
+            } else if (action.equalsIgnoreCase("currentRoom")) {
+                int roomid = Integer.parseInt(request.getParameter("roomid"));
+                Context ctx = new InitialContext();
+                OperationsRemote or = (OperationsRemote) ctx.lookup(OperationsRemote.class.getName());
+                TblRoom rooms = (TblRoom) or.getRoomByID(roomid);
+                request.setAttribute("rooms", rooms);
+                forwardRequest(request, response, nextURL);
             }
 
         } catch (Exception ex) {
@@ -265,8 +281,8 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("LoggedIn", user);
                         TblCustomer customerDetails = user.getCustomerid();
                         session.setAttribute("customerDetails", customerDetails);
-                        if(user.getLogintype().equalsIgnoreCase("ADMIN")){
-                            nextURL="/AddRoom.jsp";
+                        if (user.getLogintype().equalsIgnoreCase("ADMIN")) {
+                            nextURL = "/AddRoom.jsp";
                         }
                         forwardRequest(request, response, nextURL);
                         out.println("Login Successful!");

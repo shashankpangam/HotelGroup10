@@ -59,14 +59,14 @@
                                         SimpleDateFormat myformat = new SimpleDateFormat("EEE, dd MMM, YYYY");
                                         for (TblBooking booking : myBookings) {
                                             out.println("<tr>");
-                                            String rooms = booking.getRoomnumber();
-                                            String services = booking.getServices();
-                                            List<String> roomsById = Arrays.asList(rooms.split(","));
-                                            List<String> servicesById = Arrays.asList(services.split(","));
+                                            String rooms = booking.getRoomnumber().trim();
+                                            String services = booking.getServices().trim();
+                                            List<String> roomsById = Arrays.asList(rooms.split(" "));
+                                            List<String> servicesById = Arrays.asList(services.split(" "));
                                             out.println("<td>");
                                             for (int i = 0; i < roomsById.size(); i++) {
                                                 TblRoom room = (TblRoom) or.getRoomByID(Integer.parseInt(roomsById.get(i)));
-                                                out.println("<a href='currentRoom.jsp?roomnumber=" + room.getRoomnumber() + "'>" + room.getRoomnumber() + " - " + room.getRoomview() + "</a>");
+                                                out.println("<a href='LoginServlet.jsp?action=currentRoom&nextURL=/currentRoom.jsp&roomid=" + room.getRoomnumber() + "'>" + room.getRoomnumber() + " - " + room.getRoomview() + "</a>");
                                             }
                                             out.println("</td><td>");
                                             for (int i = 0; i < servicesById.size(); i++) {

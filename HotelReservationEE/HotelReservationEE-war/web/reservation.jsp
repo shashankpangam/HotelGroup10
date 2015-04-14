@@ -33,9 +33,7 @@
                     <div class="content" style="width:500px;">
 
 
-                        <%
-
-                            Context context = new InitialContext();
+                        <%  Context context = new InitialContext();
                             RoomBookingBeanRemote rbb = (RoomBookingBeanRemote) session.getAttribute("mycart");
                             if (rbb == null) {
                                 rbb = (RoomBookingBeanRemote) context.lookup(RoomBookingBeanRemote.class.getName());
@@ -81,6 +79,7 @@
 
                                     <%
                                         List<TblRoom> roomList = (List<TblRoom>) rbb.getContents();
+                                        session.setAttribute("selectedRooms", roomList);
                                         for (TblRoom x : roomList) {
                                     %>
                                     <td>
@@ -89,13 +88,11 @@
                                                 total = total + x.getPrice();
 
                                                 out.println(x.getRoomnumber() + "</td><td>");
-                                                out.println("$" + x.getPrice()+"</td><td>");
+                                                out.println("$" + x.getPrice() + "</td><td>");
                                                 out.println("<input type='submit' name='action' value='Delete Room'/>");
                                             }
-
                                         %>
-                                    </td>   
-                                 
+                                    </td>
                                 </tr>
                             </table><br/><br/>
                             <h6> Services Selected:</h6>
@@ -105,7 +102,8 @@
                                     <th>Service Price</th>
                                 </tr>
 
-                                <%                                      List<TblServices> serviceList = (List<TblServices>) rbb.getServices();
+                                <%  List<TblServices> serviceList = (List<TblServices>) rbb.getServices();
+                                    session.setAttribute("selectedServices", serviceList);
                                     for (TblServices x : serviceList) {
                                 %>
                                 <tr><td>
@@ -113,41 +111,33 @@
                                                 out.println("<input type='hidden' name='serviceid' value='" + x.getServiceid() + "'/>");
                                                 total = total + x.getPrice();
                                                 out.println(x.getName().toLowerCase() + "</td><td>");
-                                                out.println("$" + x.getPrice()+"</td><td>");
+                                                out.println("$" + x.getPrice() + "</td><td>");
                                                 out.println("<input type='submit' name='action' value='Delete Service'/>");
                                             }
-
-
                                         %>
                                     </td>
-
-                                   
-
-
                                 </tr>
                             </table><br/><br/>
                             <div>
-
                                 <h6>Total Bill :  
-
                                     <%    out.println("$" + total);
+                                        session.setAttribute("total", total);
                                     %>
                                 </h6>
-                                <br/><br/>
+                                <br/>
+                            </div>
+                            <div>
+                                <h6>Special Request</h6>
+                                <br/>
+                                <textarea rows="5" cols="10" name="specialRequest"></textarea>
+                                <br/>
                                 <input type="submit" name="action" value="Cancel Booking"/>
                                 <input type="submit" name="action" value="Confirm Booking"/>
-
-
                             </div>
                         </form>
 
                     </div></div></div>
-
-
-
             <div class="clear"></div>
         </div>
-
         <%@include file="footer.jsp" %>
-
     </body></html>

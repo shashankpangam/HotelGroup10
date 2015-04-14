@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link href="stylesheet/style.css" rel="stylesheet" type="text/css" />
         <link href="stylesheet/layout.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
             <script src="scripts/maxheight.js" type="text/javascript"></script>
             <script type="text/javascript" src="jquery.idTabs.min.js"></script>
             <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -37,33 +37,33 @@
                                 </ul>
                                 <div id="tabs-1">
                                     <form id="login" method="post" action="LoginServlet.jsp?action=loginAction&returnURL=/login.jsp&nextURL=/index.jsp">
-                                        <label>Email* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="email"/><br/><br/>
-                                        <label>Password* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="password" name="password"/><br/><br/><br/>
+                                        <label>Email* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="email" style="width:185px;"/><br/><br/>
+                                        <label>Password* :&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="password" name="password"/><br/><br/><br/>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="Login"/><br/>
                                     </form>
                                 </div>
                                 <div id="tabs-2">
                                     <form id="register" method="post" action="LoginServlet.jsp?action=addNewUser&returnURL=/login.jsp&nextURL=/index.jsp">
                                         <label>Title* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                                        <select name="title" id="title">
+                                        <select name="title" id="title" style="width:185px;margin-left:42px;">
                                             <option value="MR">Mr.</option>
                                             <option value="MRS">Mrs.</option>
                                             <option value="MISS">Miss</option>
                                             <option value="DR">Dr.</option>
                                         </select><br/><br/>
-                                        <label>First Name* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="fname"/><br/><br/>
-                                        <label>Last Name* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="lname"/><br/><br/>
-                                        <label>Date of Birth* :&nbsp;</label><input type="date" name="dob"/><br/><br/>
-                                        <label>Address Line 1* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="addressLine1"/><br/><br/>
-                                        <label>Address Line 2 :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="addressLine2"/><br/><br/>
+                                        <label>First Name* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="fname" style="margin-left:42px;width:185px;"/><br/><br/>
+                                        <label>Last Name* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="lname" style="margin-left:45px;width:185px;"/><br/><br/>
+                                        <label>Date of Birth* :&nbsp;</label><input type="date" name="dob" style="margin-left:48px;width:185px;"/><br/><br/>
+                                        <label>Address Line 1* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="addressLine1" style="width:185px;"/><br/><br/>
+                                        <label>Address Line 2 :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="addressLine2" style="margin-left:10px;width:185px;"/><br/><br/>
                                         <label>City* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </label><input type="text" name="city"/><br/><br/>
-                                        <label>Province* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="province"/><br/><br/>
-                                        <label>Zip/Postal Code* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="zip"/><br/><br/>
-                                        <label>Country* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="country"/><br/><br/>
-                                        <label>Email* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="email"/><br/><br/>
-                                        <label>Password* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="password" name="password"/><br/><br/><br/>
-                                        <label>Repeat Password* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="password" name="passwordrepeat"/><br/><br/><br/>
+                                        </label><input type="text" name="city" style="margin-left:45px;width:185px;"/><br/><br/>
+                                        <label>Province* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="province" style="margin-left:50px;width:185px;"/><br/><br/>
+                                        <label>Postal Code* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="zip" style="margin-left:30px;width:185px;"/><br/><br/>
+                                        <label>Country* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="country" style="margin-left:50px;width:185px;"/><br/><br/>
+                                        <label>Email* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="email" style="margin-left:45px;width:185px;"/><br/><br/>
+                                        <label>Password* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="password" name="password" style="margin-left:50px;"/><br/><br/><br/>
+                                        <label>Repeat Password* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="password" name="passwordrepeat" /><br/><br/><br/>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="register" value="Create Account"/><br/>
                                     </form>
                                 </div>

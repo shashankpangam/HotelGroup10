@@ -32,4 +32,6 @@ public interface RoomBookingBeanLocal {
 
     void clearCart();
 
+    boolean addNewBooking(Object obj);
+
 }
