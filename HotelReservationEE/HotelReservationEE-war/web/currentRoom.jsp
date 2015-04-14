@@ -27,9 +27,9 @@
     <div class="wrapper">
           <div class="aside maxheight">
      <%
-                            String isAvailability = (String) session.getAttribute("isAvailability");
-                            if (isAvailability=="true") {
-                        %>
+         String isAvailability = (String) session.getAttribute("isAvailability");
+            if (isAvailability=="true") {
+                    %>
                         <%@include file="menuSidebar.jsp" %>
                         <%             } else {
                         %>

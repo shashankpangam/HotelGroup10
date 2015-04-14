@@ -11,7 +11,21 @@ r-2015, 11:53:09 PM
         <div class="logo">
           <h1><a href="#">Paradise</a></h1>
           <em>Hotel</em> <strong>True Luxury</strong></div>
-          <div class="phones"><h4>Welcome &nbsp;<a href="login.jsp">Log in</a> | <a href="myaccount.jsp">MyAccount</a></h4>
+          <div class="phones"><h4>Welcome &nbsp;
+              <%
+                    if (session.getAttribute("LoggedIn") != null) {
+                    %>
+                    <%= session.getAttribute("sessionFname")%>
+                    &nbsp; | &nbsp; <a href="LoginServlet.jsp?next=logout" >Logout</a> |  <a href="myaccount.jsp">MyAccount</a>
+
+                <%
+                } else {
+                %>
+                <a href="LoginServlet.jsp?action=addNewUser&returnURL=/login.jsp&nextURL=/index.jsp">Log in</a> &nbsp; | &nbsp; <a href="LoginServlet.jsp?action=Register&returnURL=/View/register.jsp">Register</a>
+                <%
+                    }
+                %>
+              
        </div>
       </div>
     </div>
