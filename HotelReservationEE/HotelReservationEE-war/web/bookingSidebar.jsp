@@ -8,33 +8,22 @@
  <div class="box maxheight">
           <div class="inner">
             <h3>Reservation:</h3>
-            <form action="#" id="reservation-form">
+            <form action="RoomBooking.jsp" id="reservation-form">
               <fieldset>
               <div class="field">
                 <label>Check In:</label>
-                <select class="select1">
-                  <option>30</option>
-                </select>
-                <select class="select2">
-                  <option>April 2009</option>
-                </select>
+                <input type="date" name="checkIndate" style="width:120px;" />        
               </div><br/>
               <div class="field">
                 <label>Check Out:</label>
-                <select class="select1">
-                  <option>01</option>
-                </select>
-                <select class="select2">
-                  <option>May 2009</option>
-                </select>
+                <input type="date" name="checkOutdate" style="width:120px;" />     
               </div><br/>
-              <div class="field"> Persons: &nbsp;
-                <input type="text" value="1"/>
-&nbsp; &nbsp; &nbsp; &nbsp; 
-<br/>Rooms:&nbsp;
-                <input type="text" value="1"/>
+              <div class="field"> 
+                  <label>No. of Persons: </label>
+                <input type="text" name="person" style="width:120px;" />
               </div>
-              <div class="button"><span><span><a href="#">Check Availability</a></span></span></div>
+             
+              <input type="submit" name="action" value="Check Availability" style="width:150px"/>
               </fieldset>
             </form>
           </div>
