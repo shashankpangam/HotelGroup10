@@ -28,5 +28,8 @@ public interface RoomBookingBeanLocal {
 
     boolean removeService(Object obj);
 
-   boolean removeRoom(Object obj);
-   void clearCart();
+    boolean removeRoom(Object obj);
+
+    void clearCart();
+
+}

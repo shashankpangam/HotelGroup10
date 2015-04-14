@@ -38,8 +38,7 @@ public class RoomBookingBean implements RoomBookingBeanRemote, RoomBookingBeanLo
     public ArrayList getContents() {
         return this.shoppingCart;
     }
-    
-    
+
     @Override
     public ArrayList getServices() {
         return this.servicesList;
@@ -59,26 +58,7 @@ public class RoomBookingBean implements RoomBookingBeanRemote, RoomBookingBeanLo
         } else {
             return servicesList.add(service);
         }
-        else
-        return servicesList.add(service);
     }
-    
-    @Override
-    public boolean removeService(Object obj){
-        TblServices service=(TblServices) obj;
-        return this.servicesList.remove(service);
-    }
-    @Override
-     public boolean removeRoom(Object obj){
-        TblRoom room=(TblRoom) obj;
-        return this.shoppingCart.remove(room);
-    }
-      @Override
-    public void clearCart(){
-        shoppingCart.clear();
-        servicesList.clear();
-    }
-     
 
     @Override
     public boolean removeService(Object obj) {

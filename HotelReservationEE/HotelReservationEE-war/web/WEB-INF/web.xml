@@ -22,7 +22,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewDetails</servlet-name>
-        <url-pattern>/ViewDetails</url-pattern>
+        <url-pattern>/ViewDetails.jsp</url-pattern>
     </servlet-mapping>
       <servlet>
         <servlet-name>RoomBooking</servlet-name>
@@ -30,7 +30,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>RoomBooking</servlet-name>
-        <url-pattern>/RoomBooking</url-pattern>
+        <url-pattern>/RoomBooking.jsp</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
