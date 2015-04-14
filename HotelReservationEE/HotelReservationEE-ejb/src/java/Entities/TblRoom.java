@@ -36,6 +36,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblRoom.findBySmoking", query = "SELECT t FROM TblRoom t WHERE t.smoking = :smoking"),
     @NamedQuery(name = "TblRoom.findByPrice", query = "SELECT t FROM TblRoom t WHERE t.price = :price")})
 public class TblRoom implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "STATUS")
+    private String status;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -191,6 +196,14 @@ public class TblRoom implements Serializable {
     @Override
     public String toString() {
         return "Entities.TblRoom[ roomnumber=" + roomnumber + " ]";
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }
