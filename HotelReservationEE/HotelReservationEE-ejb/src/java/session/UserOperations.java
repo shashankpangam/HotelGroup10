@@ -156,9 +156,10 @@ public class UserOperations implements UserOperationsRemote, UserOperationsLocal
     }
 
     @Override
-    public List getBookingsByCustomerId(int customerid) {
+    public List getBookingsByCustomerId(Object customerid) {
         try {
-            query = em.createNamedQuery("TblBooking.findByCustomerId").setParameter("customerid", customerid); 
+            TblCustomer customer = (TblCustomer) customerid;
+            query = em.createNamedQuery("TblBooking.findByCustomerId").setParameter("customerid", customer);
             return query.getResultList();
         } catch (EJBException e) {
             @SuppressWarnings("ThrowableResultIgnored")
@@ -174,7 +175,49 @@ public class UserOperations implements UserOperationsRemote, UserOperationsLocal
             }
             return null;
         }
-
     }
 
+    @Override
+    public Object getBookingById(int id) {
+        try {
+            query = em.createNamedQuery("TblBooking.findByBookingid").setParameter("bookingid", id);
+            TblBooking booking = (TblBooking) query.getSingleResult();
+            return booking;
+        } catch (EJBException e) {
+            @SuppressWarnings("ThrowableResultIgnored")
+            Exception cause = e.getCausedByException();
+            if (cause instanceof ConstraintViolationException) {
+                @SuppressWarnings("ThrowableResultIgnored")
+                ConstraintViolationException cve = (ConstraintViolationException) e.getCausedByException();
+                for (Iterator<ConstraintViolation<?>> it = cve.getConstraintViolations().iterator(); it.hasNext();) {
+                    ConstraintViolation<? extends Object> v = it.next();
+                    System.err.println(v);
+                    System.err.println("==>>" + v.getMessage());
+                }
+            }
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteBooking(int bookingid) {
+        try {
+            TblBooking obj = em.find(TblBooking.class, bookingid);
+            em.remove(obj);
+            return true;
+        } catch (EJBException e) {
+            @SuppressWarnings("ThrowableResultIgnored")
+            Exception cause = e.getCausedByException();
+            if (cause instanceof ConstraintViolationException) {
+                @SuppressWarnings("ThrowableResultIgnored")
+                ConstraintViolationException cve = (ConstraintViolationException) e.getCausedByException();
+                for (Iterator<ConstraintViolation<?>> it = cve.getConstraintViolations().iterator(); it.hasNext();) {
+                    ConstraintViolation<? extends Object> v = it.next();
+                    System.err.println(v);
+                    System.err.println("==>>" + v.getMessage());
+                }
+            }
+            return false;
+        }
+    }
 }

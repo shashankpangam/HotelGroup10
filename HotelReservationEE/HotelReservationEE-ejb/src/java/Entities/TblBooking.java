@@ -41,8 +41,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblBooking.findByDateto", query = "SELECT t FROM TblBooking t WHERE t.dateto = :dateto"),
     @NamedQuery(name = "TblBooking.findByStatus", query = "SELECT t FROM TblBooking t WHERE t.status = :status"),
     @NamedQuery(name = "TblBooking.findByTotal", query = "SELECT t FROM TblBooking t WHERE t.total = :total"),
-    @NamedQuery(name = "TblBooking.findByCustomerId", query = "SELECT t FROM TblBooking t WHERE t.customerid = :customerid")})
+    @NamedQuery(name = "TblBooking.findByCustomerId", query = "SELECT t FROM TblBooking t WHERE t.customerid = :customerid"),
+    @NamedQuery(name = "TblBooking.findByStatusFloor", query = "SELECT t FROM TblBooking t, TblRoom b WHERE t.status = :status and b.floor=:floor and t.roomnumber=b.roomnumber"),
+    @NamedQuery(name = "TblBooking.findByDateRange", query = "SELECT t FROM TblBooking t WHERE t.datefrom >= :startDate and t.dateto <= :endDate")})
 public class TblBooking implements Serializable {
+
     @Size(max = 1000)
     @Column(name = "REQUEST")
     private String request;
@@ -208,5 +211,5 @@ public class TblBooking implements Serializable {
     public void setRequest(String request) {
         this.request = request;
     }
-    
+
 }

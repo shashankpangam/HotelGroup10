@@ -32,6 +32,10 @@ public interface UserOperationsLocal {
 
     Object getCustomerById(int id);
 
-    List getBookingsByCustomerId(int customerid);
+    List getBookingsByCustomerId(Object customerid);
+
+    Object getBookingById(int id);
+
+    boolean deleteBooking(int bookingid);
     
 }

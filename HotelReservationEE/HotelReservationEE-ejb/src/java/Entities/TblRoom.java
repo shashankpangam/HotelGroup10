@@ -34,8 +34,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblRoom.findByBedtype", query = "SELECT t FROM TblRoom t WHERE t.bedtype = :bedtype"),
     @NamedQuery(name = "TblRoom.findByNoofbeds", query = "SELECT t FROM TblRoom t WHERE t.noofbeds = :noofbeds"),
     @NamedQuery(name = "TblRoom.findBySmoking", query = "SELECT t FROM TblRoom t WHERE t.smoking = :smoking"),
-    @NamedQuery(name = "TblRoom.findByPrice", query = "SELECT t FROM TblRoom t WHERE t.price = :price")})
+    @NamedQuery(name = "TblRoom.findByPrice", query = "SELECT t FROM TblRoom t WHERE t.price = :price"),
+    @NamedQuery(name = "TblRoom.findByStatus", query = "SELECT t FROM TblRoom t WHERE t.status = :status")})
 public class TblRoom implements Serializable {
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -205,5 +207,5 @@ public class TblRoom implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
 }
