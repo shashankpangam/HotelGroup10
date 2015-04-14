@@ -8,7 +8,7 @@
 
 .aside { float:left; width:236px; margin-right:50px;}
 .content { float:left; width:594px; position:relative;}
-
+.myaccount {float:left; width:800px; position:relative;}
 /*======= index.html =======*/
 #page1 #content .line-ver { background-position:297px top;}
 #page1 #content .col-1 {width:214px; margin-right:112px;}

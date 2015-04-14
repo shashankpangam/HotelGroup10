@@ -32,10 +32,17 @@
                         <div class="indent">
                             <div id="tabs" align="left">
                                 <ul>
-                                    <li><a href="#tabs-1">Not a Member?</a></li>
-                                    <li><a href="#tabs-2">User</a></li>
+                                    <li><a href="#tabs-1">Login</a></li>
+                                    <li><a href="#tabs-2">Not a Member?</a></li>
                                 </ul>
                                 <div id="tabs-1">
+                                    <form id="login" method="post" action="LoginServlet.jsp?action=loginAction&returnURL=/login.jsp&nextURL=/index.jsp">
+                                        <label>Email* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="email"/><br/><br/>
+                                        <label>Password* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="password" name="password"/><br/><br/><br/>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="Login"/><br/>
+                                    </form>
+                                </div>
+                                <div id="tabs-2">
                                     <form id="register" method="post" action="LoginServlet.jsp?action=addNewUser&returnURL=/login.jsp&nextURL=/index.jsp">
                                         <label>Title* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                                         <select name="title" id="title">
@@ -58,16 +65,9 @@
                                         <label>Password* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="password" name="password"/><br/><br/><br/>
                                         <label>Repeat Password* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="password" name="passwordrepeat"/><br/><br/><br/>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="register" value="Create Account"/><br/>
+                                    </form>
+                                </div>
 
-                                    </form>
-                                </div>
-                                <div id="tabs-2">
-                                    <form id="login" method="post" action="LoginServlet.jsp?action=loginAction&returnURL=/login.jsp&nextURL=/index.jsp">
-                                        <label>Email* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="email"/><br/><br/>
-                                        <label>Password* :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="password" name="password"/><br/><br/><br/>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="Login"/><br/>
-                                    </form>
-                                </div>
                             </div>
                         </div>
                     </div>

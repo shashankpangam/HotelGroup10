@@ -34,6 +34,8 @@ import session.UserOperationsRemote;
  */
 public class LoginServlet extends HttpServlet {
 
+    Context ctx;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -76,7 +78,27 @@ public class LoginServlet extends HttpServlet {
             String action = request.getParameter("action");
             String returnURL = request.getParameter("returnURL");
             String nextURL = request.getParameter("nextURL");
+            HttpSession session = request.getSession(true);
+            if (action.equalsIgnoreCase("myAccount")) {
+                TblCustomer customer = (TblCustomer) session.getAttribute("customerDetails");
+                if (customer == null) {
+                    out.println("Please Login first");
+                    includeRequest(request, response, returnURL);
+                } else {
+                    UserOperationsRemote uor = (UserOperationsRemote) session.getAttribute("uor");
+                    if (uor == null) {
+                        Context ctx = new InitialContext();
+                        uor = (UserOperationsRemote) ctx.lookup(UserOperationsRemote.class.getName());
+                        session.setAttribute("uor", uor);
+                    }
+                    List<TblBooking> myBookings = uor.getBookingsByCustomerId(customer);
+                    session.setAttribute("myBookings", myBookings);
+                    forwardRequest(request, response, nextURL);
+                }
+            }
 
+        } catch (Exception ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -243,6 +265,9 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("LoggedIn", user);
                         TblCustomer customerDetails = user.getCustomerid();
                         session.setAttribute("customerDetails", customerDetails);
+                        if(user.getLogintype().equalsIgnoreCase("ADMIN")){
+                            nextURL="/AddRoom.jsp";
+                        }
                         forwardRequest(request, response, nextURL);
                         out.println("Login Successful!");
                     } else {
@@ -250,21 +275,24 @@ public class LoginServlet extends HttpServlet {
                         out.println("Error Occured, Please try again later");
                     }
                 }
-            } else if (action.equalsIgnoreCase("myAccount")) {
-                TblCustomer customer = (TblCustomer) session.getAttribute("customerDetails");
-                if (customer == null) {
-                    out.println("Please Login first");
-                    includeRequest(request, response, returnURL);
-                } else {
-                    UserOperationsRemote uor = (UserOperationsRemote) session.getAttribute("uor");
-                    if (uor == null) {
-                        Context ctx = new InitialContext();
-                        uor = (UserOperationsRemote) ctx.lookup(UserOperationsRemote.class.getName());
-                        session.setAttribute("uor", uor);
-                    }
-                    List<TblBooking> myBookings = (List<TblBooking>) uor.getBookingsByCustomerId(customer.getCustomerid());
+            } else if (action.equalsIgnoreCase("Delete")) {
+                int bookingid = Integer.parseInt(request.getParameter("bookingid"));
+                UserOperationsRemote uor = (UserOperationsRemote) session.getAttribute("uor");
+                if (uor == null) {
+                    Context ctx = new InitialContext();
+                    uor = (UserOperationsRemote) ctx.lookup(UserOperationsRemote.class.getName());
+                    session.setAttribute("uor", uor);
+                }
+                boolean flag = uor.deleteBooking(bookingid);
+                if (flag) {
+                    TblCustomer customer = (TblCustomer) session.getAttribute("customerDetails");
+                    List<TblBooking> myBookings = uor.getBookingsByCustomerId(customer);
                     session.setAttribute("myBookings", myBookings);
                     forwardRequest(request, response, nextURL);
+                    out.println("Delete Successful");
+                } else {
+                    forwardRequest(request, response, returnURL);
+                    out.println("Error Occured!");
                 }
             }
         } catch (Exception ex) {

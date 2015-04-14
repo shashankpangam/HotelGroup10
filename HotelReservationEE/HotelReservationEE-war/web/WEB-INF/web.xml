@@ -9,6 +9,14 @@
         <url-pattern>/LoginServlet.jsp</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>AdminOperations</servlet-name>
+        <servlet-class>servlet.AdminOperations</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminOperations</servlet-name>
+        <url-pattern>/AdminOperations.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>ViewDetails</servlet-name>
         <servlet-class>servlet.ViewDetails</servlet-class>
     </servlet>
